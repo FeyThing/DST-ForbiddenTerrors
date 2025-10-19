@@ -17,6 +17,8 @@ return Class(function(self, inst)
 	local batch_index = 1
 	local batch_total = 0
 	local BATCH_MAX_FOG = 100
+
+    local _fog_height = 3
 	
 	local function OnFogBlockRangeDirty(src, data)
 		self.blocker_update = true
@@ -44,7 +46,7 @@ return Class(function(self, inst)
 	function self:GetFogPosition(row, line, x, y, z)
 		local row_x = -((self.lines - 1) * self.spacing_x) / 2 + (line - 1) * self.spacing_x
 		local row_z = -((self.rows - 1) * self.spacing_y) / 2 + (row - 1) * self.spacing_y
-		local row_y = 3
+		local row_y = _fog_height
 		
 		return Vector3(x + row_x, y + row_y, z + row_z)
 	end
@@ -82,12 +84,12 @@ return Class(function(self, inst)
 			local in_fog, in_light = TheWorld.Map:IsDarkForestFogBlocked(pt.x, 0, pt.z)
 			in_fog = not in_fog
 			
-			if fog == nil and in_fog then
+			if (fog == nil or not fog:IsValid()) and in_fog then
 				fog = SpawnPrefab("df_fog")
 				fog.Transform:SetPosition(pt.x, pt.y, pt.z)
 				self.fog_positions[pt_str] = fog
 				fog:DoFogFade(nil, nil, 6)
-			elseif fog and fog:IsValid() then
+            elseif fog and fog:IsValid() then
 				if not in_fog and not fog._fading then
 					fog:DoFogFade(true, nil, in_light and 0.5 or nil)
 				elseif in_fog and fog._fading then
@@ -97,6 +99,24 @@ return Class(function(self, inst)
 			
 			batch_index = batch_index + 1
 			processed = processed + 1
+		end
+
+		local ambientlighting = TheWorld.components.ambientlighting
+		if ambientlighting ~= nil then
+            local to_remove = {}
+			local r, g, b = ambientlighting:GetRealColour()
+            -- Mult by the inverse of the day ambient colour so we get white during the day
+            r, g, b = r * 255 / 255, g * 255 / 230, b * 255 / 158
+            for pt_str, fog in pairs(self.fog_positions) do
+                if not fog:IsValid() then
+                    table.insert(to_remove, pt_str)
+                else
+                    fog:SetColour(r, g, b)
+                end
+            end
+            for i, pt_str in ipairs(to_remove) do
+                self.fog_positions[pt_str] = nil
+            end
 		end
 	end
 	
