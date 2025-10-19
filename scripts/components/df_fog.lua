@@ -44,8 +44,9 @@ return Class(function(self, inst)
 	function self:GetFogPosition(row, line, x, y, z)
 		local row_x = -((self.lines - 1) * self.spacing_x) / 2 + (line - 1) * self.spacing_x
 		local row_z = -((self.rows - 1) * self.spacing_y) / 2 + (row - 1) * self.spacing_y
+		local row_y = 3
 		
-		return Vector3(x + row_x, 0, z + row_z)
+		return Vector3(x + row_x, y + row_y, z + row_z)
 	end
 	
 	function self:RemoveFog()
