@@ -84,21 +84,26 @@ return Class(function(self, inst) -- Adapted from Winterlands blizzard cycle. To
 	end
 	
 	function self:OnLoad(data)
-		if data then
-			if data.fog_duration_left then
-				StartFog()
-				
+		if not data then
+			return
+		end
+		
+		if data.fog_active and data.fog_duration_left and data.fog_duration_left > 0 then
+			StartFog()
+			
+			inst:DoTaskInTime(0, function()
 				_fog_duration_task = inst:DoTaskInTime(data.fog_duration_left, function()
 					_fog_duration_task = nil
 					StopFog()
 					ScheduleNextFog()
 				end)
+				
 				_fog_duration_task._fn = _fog_duration_task.fn
-			elseif data.fog_cd_left then
+			end)
+		elseif (not data.fog_active) and data.fog_cd_left and data.fog_cd_left > 0 then
+			inst:DoTaskInTime(0, function()
 				ScheduleNextFog(data.fog_cd_left)
-			else
-				ScheduleNextFog()
-			end
+			end)
 		else
 			ScheduleNextFog()
 		end
@@ -114,5 +119,26 @@ return Class(function(self, inst) -- Adapted from Winterlands blizzard cycle. To
 		end
 	end
 	
-	ScheduleNextFog()
+	local function OnPlayerActivated(inst, player)
+		if TheWorld:HasTag("df_fog_ongoing") then
+			player:AddTag("df_fog_ongoing")
+		else
+			player:RemoveTag("df_fog_ongoing")
+		end
+		
+		if TUNING.DF_FOG_ENABLED and _fog_cd_task == nil and _fog_duration_task == nil then
+			ScheduleNextFog()
+		end
+	end
+	
+	local function OnPlayerDeactivated(inst, player)
+		if TheWorld:HasTag("df_fog_ongoing") then
+			player:RemoveTag("df_fog_ongoing")
+		end
+	end
+	
+	if TUNING.DF_FOG_ENABLED then
+		inst:ListenForEvent("playeractivated", OnPlayerActivated)
+		inst:ListenForEvent("playerdeactivated", OnPlayerDeactivated)
+	end
 end)
