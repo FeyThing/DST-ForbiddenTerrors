@@ -7,6 +7,7 @@ PrefabFiles = {
 	"df_reeds",
 	"df_rock_water",
 	"df_waterspot",
+	"df_pan",
 	"df_mosquito",
 	"eviltree_tall",
 	"scyther",
