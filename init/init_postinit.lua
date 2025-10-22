@@ -35,6 +35,7 @@ local gustable_prefabs_post = {
 }
 
 local stategraphs_post = {
+	"wilson",
 }
 
 local brains_post = {

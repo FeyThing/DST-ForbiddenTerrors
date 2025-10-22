@@ -12,4 +12,5 @@ PrefabFiles = {
 	"eviltree_tall",
 	"scyther",
 	"waterfall_oceanevil",
+	"df_unassuming_tree",
 }

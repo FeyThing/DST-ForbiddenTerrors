@@ -34,6 +34,10 @@ end
 local function onregenfn(inst)
     inst.AnimState:PlayAnimation("grow")
     inst.AnimState:PushAnimation("idle", true)
+	
+	if inst.components.df_hidingspot ~= nil then
+		inst.components.df_hidingspot:SetCanHide(true)
+	end
 end
 
 local function makeemptyfn(inst)
@@ -47,6 +51,10 @@ local function makeemptyfn(inst)
     else
         inst.AnimState:PlayAnimation("picked")
     end
+	
+	if inst.components.df_hidingspot ~= nil then
+		inst.components.df_hidingspot:SetCanHide(false)
+	end
 end
 
 local function makebarrenfn(inst, wasempty)
@@ -59,6 +67,10 @@ local function makebarrenfn(inst, wasempty)
     else
         inst.AnimState:PlayAnimation("idle_dead")
     end
+	
+	if inst.components.df_hidingspot ~= nil then
+		inst.components.df_hidingspot:SetCanHide(false)
+	end
 end
 
 local function onpickedfn(inst, picker)
@@ -71,6 +83,21 @@ local function onpickedfn(inst, picker)
     else
         inst.AnimState:PushAnimation("picked", false)
     end
+	
+	if inst.components.df_hidingspot ~= nil then
+		inst.components.df_hidingspot:SetCanHide(false)
+	end
+end
+
+local function OnUsedAsHidingSpot(inst, doer)
+	local pickable = inst.components.pickable
+	local witherable = inst.components.witherable
+	
+	inst:DoTaskInTime(0, function()
+		if not pickable:IsBarren() and pickable:CanBePicked() and not witherable:IsWithered() then
+			inst.AnimState:PlayAnimation("rustle")
+		end
+	end)
 end
 
 
@@ -142,6 +169,11 @@ local function df_grass(name, stage)
         inst.components.pickable.ontransplantfn = ontransplantfn
 
         inst:AddComponent("witherable")
+		
+		inst:AddComponent("df_hidingspot")
+		inst.components.df_hidingspot:SetCanHide(true)
+		inst.components.df_hidingspot.onhide = OnUsedAsHidingSpot
+		inst.components.df_hidingspot.onunhide = OnUsedAsHidingSpot
 
         if stage == 1 then
             inst.components.pickable:MakeBarren()

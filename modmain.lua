@@ -10,6 +10,7 @@ end
 local inits = {
     "init_constants",
     "init_tuning",
+	"init_actions",
     "init_RPC",
     "init_postinit",
 	"init_assets",

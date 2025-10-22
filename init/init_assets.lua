@@ -1,5 +1,7 @@
 Assets = {
 	Asset( "ANIM", "anim/evil_canopy.zip"),
+	
+	Asset( "ANIM", "anim/df_unassuming_tree.zip"),
 
 	Asset("IMAGE", "images/evil_inventoryimages.tex"),
 	Asset("ATLAS", "images/evil_inventoryimages.xml"),
