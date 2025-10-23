@@ -9,6 +9,7 @@ PrefabFiles = {
 	"df_waterspot",
 	"df_pan",
 	"df_mosquito",
+	"df_poison_ivy",
 	"eviltree_tall",
 	"scyther",
 	"waterfall_oceanevil",

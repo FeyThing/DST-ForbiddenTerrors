@@ -5,6 +5,11 @@ local MAX_CLUSTERS = 40
 
 local RIVER_TILE_DIST = 1
 
+local GRASS_PREFABS = {
+    df_grass = 9,
+    df_poison_ivy = 1,
+}
+
 -- Keep up to date for each natural tiles in the dark forest
 local DF_TILES_GENERATED = {WORLD_TILES.EVILFOREST, WORLD_TILES.EVILMUDDY, WORLD_TILES.FOREST}
 
@@ -46,7 +51,7 @@ return Class(function(self, inst)
 							and #TheSim:FindEntities(x, y, z, 4, nil, PLANT_TAGS) == 0
 						
 						if has_space then
-							SpawnPrefab("df_grass").Transform:SetPosition(x, y, z)
+							SpawnPrefab(weighted_random_choice(GRASS_PREFABS)).Transform:SetPosition(x, y, z)
 						end
 					end
 				end
