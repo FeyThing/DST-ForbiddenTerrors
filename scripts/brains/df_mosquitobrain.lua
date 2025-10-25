@@ -25,15 +25,6 @@ local MAX_CHASE_TIME = 10
 
 -------------------------------------------------------------------------------------------------------------
 
-local function GoHomeAction(inst)
-    if inst.components.homeseeker and
-       inst.components.homeseeker.home and
-       inst.components.homeseeker.home:IsValid()
-    then
-        return BufferedAction(inst, inst.components.homeseeker.home, ACTIONS.GOHOME)
-    end
-end
-
 local function GetLeader(inst)
     return inst.components.follower ~= nil and inst.components.follower:GetLeader() or nil
 end
@@ -56,6 +47,14 @@ end
 
 local function ShouldGoHome(inst)
     return TheWorld.state.iswinter or (TheWorld.state.isday and not inst.override_stay_out)
+end
+
+local function GetGoHomeAction(inst)
+    if not ShouldGoHome(inst) then
+        return 
+    end
+    local pos = inst.components.knownlocations:GetLocation("home")
+    return BufferedAction(inst, nil, ACTIONS.DF_OCEAN_GO_HOME, nil, pos)
 end
 
 local function GetNoLeaderHomePos(inst)
@@ -86,6 +85,10 @@ local Df_MosquitoBrain = Class(Brain, function(self, inst)
     Brain._ctor(self, inst)
 end)
 
+function Df_MosquitoBrain:OnInitializationComplete()
+    self.inst.components.knownlocations:RememberLocation("home", Point(self.inst.Transform:GetWorldPosition()), true)
+end
+
 function Df_MosquitoBrain:OnStart()
 
     local root = PriorityNode(
@@ -96,7 +99,8 @@ function Df_MosquitoBrain:OnStart()
         Leash(self.inst, GetNoLeaderHomePos, MAX_LEASH_DIST, MAX_WANDER_DIST),
         WhileNode(function() return ShouldChaseAndAttack(self.inst) end, "AttackMomentarily", ChaseAndAttack(self.inst, SpringCombatMod(MAX_CHASE_TIME), SpringCombatMod(MAX_CHASE_DIST)) ),
         WhileNode(function() return ShouldGoHome(self.inst) end, "ShouldGoHome",
-            DoAction(self.inst, GoHomeAction, "go home", true )),
+            DoAction(self.inst, function() return GetGoHomeAction(self.inst) end, "GoHome")
+        ),
         WhileNode( function() return ShouldRunAway(self.inst) end, "Dodge", RunAway(self.inst, GetRunawayTarget, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST) ),
         Wander(self.inst, WanderTarget, MAX_WANDER_DIST, WANDERTIMES)
     }, .25)

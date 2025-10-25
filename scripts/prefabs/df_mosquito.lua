@@ -38,10 +38,6 @@ local function StopBuzz(inst)
     inst.SoundEmitter:KillSound("buzz")
 end
 
-local function StoreHomePos(inst, allow_overwrite)
-    inst.components.knownlocations:RememberLocation("home", inst:GetPosition(), not allow_overwrite)
-end
-
 local function IsMosquitoMusk(item)
     return item:HasTag("mosquitomusk")
 end
@@ -102,6 +98,35 @@ local function OnChangedLeader(inst, new_leader, prev_leader)
     end
 end
 
+local function OnDFPrefabSpawned(inst)
+    SpawnPrefab("splash_green_large").Transform:SetPosition(inst.Transform:GetWorldPosition())
+end
+
+local function OnGoHome(inst)
+    local x, y, z = inst.Transform:GetWorldPosition()
+    if inst:CanSubmergeAtPoint(x, y, z) then
+        SpawnPrefab("splash_green_large").Transform:SetPosition(inst.Transform:GetWorldPosition())
+        inst:Remove()
+    end
+end
+
+local function CanSubmergeAtPoint(inst, x, y, z)
+    local _map = TheWorld.Map
+    return _map:IsSurroundedByDFOcean(x, y, z, 1) and _map:GetPlatformAtPoint(x, z) == nil
+end
+
+local function OnSave(inst, data)
+    data.wants_to_despawn = inst.wants_to_despawn
+end
+
+local function OnLoad(inst, data)
+    if data == nil then
+        return
+    end
+
+    inst.wants_to_despawn = data.wants_to_despawn or nil
+end
+
 local function mosquito()
     local inst = CreateEntity()
 
@@ -117,6 +142,7 @@ local function mosquito()
     inst.Transform:SetFourFaced()
 
     inst:AddTag("mosquito")
+    inst:AddTag("df_mosquito")
     inst:AddTag("insect")
     inst:AddTag("flying")
     inst:AddTag("ignorewalkableplatformdrowning")
@@ -203,6 +229,15 @@ local function mosquito()
     inst:ListenForEvent("attacked", OnAttacked)
 
     inst.incineratesound = inst.sounds.death
+
+    inst.CanSubmergeAtPoint = CanSubmergeAtPoint
+
+    inst.OnDFPrefabSpawned = OnDFPrefabSpawned
+
+    inst:ListenForEvent("gohome", OnGoHome)
+
+    inst.OnSave = OnSave
+    inst.OnLoad = OnLoad
 
     return inst
 end

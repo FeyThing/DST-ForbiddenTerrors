@@ -92,6 +92,7 @@ local function fn(build)
 	inst:AddTag("monster")
 	inst:AddTag("hostile")
 	inst:AddTag("largecreature")
+    inst:AddTag("df_unassuming_tree")
 	
 	inst.AnimState:SetBank("df_unassuming_tree")
 	inst.AnimState:SetBuild("df_unassuming_tree")

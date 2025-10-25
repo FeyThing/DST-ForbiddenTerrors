@@ -84,6 +84,19 @@ function Physics:CollidesWith(collision, ...)
     return unpack(rets)
 end
 
+local _SetCollisionMask = Physics.SetCollisionMask
+function Physics:SetCollisionMask(mask, ...)
+    local rets = {_SetCollisionMask(self, mask, ...)}
+    if _block_mask[self] == nil then return unpack(rets) end
+    for k, v in pairs(_block_mask[self]) do
+        if self:GetCollisionGroup() == v.group then
+            v.iscolliding = self:MaskCollidesWithAll(v.collision)
+            self:ClearCollidesWith(v.collision)
+        end
+    end
+    return unpack(rets)
+end
+
 function Physics:SetTeleportCallback(fn)
     _teleport_callbacks[self] = fn
 end

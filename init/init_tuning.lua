@@ -70,6 +70,36 @@ local DF_TUNING = {
 	DF_UNASSUMING_TREE_ATTACK_PERIOD = 3,
 	DF_UNASSUMING_TREE_SIGHT_RANGE = 12,
 	DF_UNASSUMING_TREE_SIGHT_ANGLE = 120,
+
+    DF_DRIFTWOOD_CHOPS = TUNING.DRIFTWOOD_SMALL_CHOPS,
+
+    DF_DRIFTWOOD_SPAWN_DELAY = {
+        -- MIN = 30, 
+        -- MAX = 45
+        MIN = 15, 
+        MAX = 20
+    },
+
+    DF_DRIFTWOOD_LIFETIME = {
+        MIN = TUNING.TOTAL_DAY_TIME * 3,
+        MAX = TUNING.TOTAL_DAY_TIME * 4
+    },
+
+    DF_MOSQUITO_SPAWN_DELAY = {
+        -- MIN = 30, 
+        -- MAX = 180
+        MIN = 15, 
+        MAX = 20
+    },
+
+    DF_UNASSUMING_TREE_SPAWN_DELAY = {
+        -- MIN=30, 
+        -- MAX=180
+        MIN = 15, 
+        MAX = 20
+    },
+
+    DF_UNASSUMING_TREE_MAX_SPAWNED = 20,
 }
 
 

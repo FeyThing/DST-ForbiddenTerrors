@@ -1,5 +1,9 @@
 GLOBAL.setfenv(1, GLOBAL)
 
+--
+local DF_OCEAN_TILES = DF_OCEAN_TILES
+--
+
 -- Note: Sorting by the tile id is not accurate idk why ds and dst does it... -Half
 
 local RenderTileOrder = nil
@@ -75,3 +79,99 @@ function Map:IsDarkForestFogBlocked(x, y, z)
 	
 	return false
 end
+
+---------------------------------------------------------
+
+local function _test_is_df_ocean_tile_at_point(x, y, z, map)
+    return DF_OCEAN_TILES[map:GetTileAtPoint(x, y, z)] ~= nil
+end
+
+--------------------- IsCloseToTile ---------------------
+
+Map.IsCloseToTile = Map.IsCloseToTile or function(self, x, y, z, radius, tile_scale, typefn, ...)
+    if radius == 0 then return typefn(x, y, z, ...) end
+    -- Correct improper radiuses caused by changes to the radius based on overhang
+    if radius < 0 then return self:IsSurroundedByTile(x, y, z, radius * -1, tile_scale, typefn, ...) end
+    
+    local num_edge_points = math.ceil((radius*2) / tile_scale) - 1
+
+    --test the corners first
+    if typefn(x + radius, y, z + radius, ...) then return true end
+    if typefn(x - radius, y, z + radius, ...) then return true end
+    if typefn(x + radius, y, z - radius, ...) then return true end
+    if typefn(x - radius, y, z - radius, ...) then return true end
+
+    --if the radius is less than 2(1 after the -1), it won't have any edges to test and we can end the testing here.
+    if num_edge_points == 0 then return false end
+
+    local dist = (radius*2) / (num_edge_points + 1)
+    --test the edges next
+    for i = 1, num_edge_points do
+        local idist = dist * i
+        if typefn(x - radius + idist, y, z + radius, ...) then return true end
+        if typefn(x - radius + idist, y, z - radius, ...) then return true end
+        if typefn(x - radius, y, z - radius + idist, ...) then return true end
+        if typefn(x + radius, y, z - radius + idist, ...) then return true end
+    end
+
+    --test interior points last
+    for i = 1, num_edge_points do
+        local idist = dist * i
+        for j = 1, num_edge_points do
+            local jdist = dist * j
+            if typefn(x - radius + idist, y, z - radius + jdist, ...) then return true end
+        end
+    end
+    return false
+end
+
+function Map:IsCloseToDFOcean(x, y, z, radius)
+    return self:IsCloseToTile(x, y, z, radius - 1, 4, _test_is_df_ocean_tile_at_point, self)
+end
+
+---------------------------------------------------------
+
+------------------- IsSurroundedByTile ------------------
+
+Map.IsSurroundedByTile = Map.IsSurroundedByTile or function(self, x, y, z, radius, tile_scale, typefn, ...)
+    if radius == 0 then return typefn(x, y, z, ...) end
+    -- Correct improper radiuses caused by changes to the radius based on overhang
+    if radius < 0 then return self:IsCloseToTile(x, y, z, radius * -1, tile_scale, typefn, ...) end
+
+    local num_edge_points = math.ceil((radius*2) / tile_scale) - 1
+
+    --test the corners first
+    if not typefn(x + radius, y, z + radius, ...) then return false end
+    if not typefn(x - radius, y, z + radius, ...) then return false end
+    if not typefn(x + radius, y, z - radius, ...) then return false end
+    if not typefn(x - radius, y, z - radius, ...) then return false end
+
+    --if the radius is less than 2(1 after the -1), it won't have any edges to test and we can end the testing here.
+    if num_edge_points == 0 then return true end
+
+    local dist = (radius*2) / (num_edge_points + 1)
+    --test the edges next
+    for i = 1, num_edge_points do
+        local idist = dist * i
+        if not typefn(x - radius + idist, y, z + radius, ...) then return false end
+        if not typefn(x - radius + idist, y, z - radius, ...) then return false end
+        if not typefn(x - radius, y, z - radius + idist, ...) then return false end
+        if not typefn(x + radius, y, z - radius + idist, ...) then return false end
+    end
+
+    --test interior points last
+    for i = 1, num_edge_points do
+        local idist = dist * i
+        for j = 1, num_edge_points do
+            local jdist = dist * j
+            if not typefn(x - radius + idist, y, z - radius + jdist, ...) then return false end
+        end
+    end
+    return true
+end
+
+function Map:IsSurroundedByDFOcean(x, y, z, radius)
+    return self:IsSurroundedByTile(x, y, z, radius + 1, 4, _test_is_df_ocean_tile_at_point, self) 
+end
+
+---------------------------------------------------------

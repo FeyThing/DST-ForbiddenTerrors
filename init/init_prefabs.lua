@@ -1,6 +1,7 @@
 PrefabFiles = {
 	"df_berrybush",
 	"df_debug_label",
+    "df_driftwood",
 	"df_fog",
 	"df_grass",
 	"df_mushroom",

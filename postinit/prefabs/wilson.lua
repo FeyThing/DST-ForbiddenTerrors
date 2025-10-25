@@ -49,6 +49,9 @@ ENV.AddPlayerPostInit(function(inst)
 	inst:DoTaskInTime(0, function()
 		inst._df_fog_update = inst:DoPeriodicTask(1, OnDarkForestChanged)
 	end)
+
+    -- Because ghosts replace the physics cmp with a new one...
+    inst:ListenForEvent("ms_respawnedfromghost", MakePassDFOcean)
 	
     if not TheWorld.ismastersim then
         return

@@ -87,6 +87,7 @@ DFENV.AddPrefabPostInit("world", function(inst)
     if IsWorldDFEnabled() then
 		inst:AddComponent("df_fog_cycle")
 		
+        inst:AddComponent("df_prefabspawner")
 		inst:AddComponent("df_grassspawner")
 		
         inst:ListenForEvent("onterraform", OnTerraForm)
