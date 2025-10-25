@@ -25,7 +25,7 @@ SetSharedLootTable("mosquito",
     {"mosquitosack", .5},
 })
 
-local SHARE_TARGET_DIST = 30
+local SHARE_TARGET_DIST = 50
 local MAX_TARGET_SHARES = 10
 
 local function StartBuzz(inst)

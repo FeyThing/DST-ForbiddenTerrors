@@ -63,7 +63,7 @@ local DF_TUNING = {
     DF_MOSQUITO_BURST_DAMAGE = 102,
     DF_MOSQUITO_BURST_RANGE = 6,
 	
-	DF_UNASSUMING_TREE_WALKSPEED = 5,
+	DF_UNASSUMING_TREE_WALKSPEED = 7,
 	DF_UNASSUMING_TREE_WORK = 10,
 	DF_UNASSUMING_TREE_DAMAGE = 30,
 	DF_UNASSUMING_TREE_ATTACK_RANGE = 3,
@@ -76,8 +76,8 @@ local DF_TUNING = {
     DF_DRIFTWOOD_SPAWN_DELAY = {
         -- MIN = 30, 
         -- MAX = 45
-        MIN = 15, 
-        MAX = 20
+        MIN = 40, 
+        MAX = 80
     },
 
     DF_DRIFTWOOD_LIFETIME = {
@@ -95,8 +95,8 @@ local DF_TUNING = {
     DF_UNASSUMING_TREE_SPAWN_DELAY = {
         -- MIN=30, 
         -- MAX=180
-        MIN = 15, 
-        MAX = 20
+        MIN = 40, 
+        MAX = 80
     },
 
     DF_UNASSUMING_TREE_MAX_SPAWNED = 20,

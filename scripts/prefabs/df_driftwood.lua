@@ -6,8 +6,8 @@ local assets =
 SetSharedLootTable('df_driftwood',
 {
     {'twigs',           1.0},
-    {'driftwood_log',   1.0},
-    {'driftwood_log',   1.0},
+    {'log',   1.0},
+    {'log',   1.0},
 })
 
 local function OnChopped(inst, chopper, remaining_chops)
