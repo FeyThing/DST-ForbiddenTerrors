@@ -68,6 +68,12 @@ end
 local function OnSave(inst, data)
 end
 
+local function OnDFPrefabSpawned(inst)
+    if inst.components.spawnfader ~= nil then
+        inst.components.spawnfader:FadeIn()
+    end
+end
+
 local UNASSUMING_LOOT = {
 	"livinglog",
 	"livinglog",
@@ -98,6 +104,8 @@ local function fn(build)
 	inst.AnimState:SetBuild("df_unassuming_tree")
 	inst.AnimState:PlayAnimation("idle1")
 	inst.scrapbook_anim = "idle1"
+
+    inst:AddComponent("spawnfader")
 	
 	inst.entity:SetPristine()
 	
@@ -138,6 +146,8 @@ local function fn(build)
 	MakeHauntableIgnite(inst)
 	
 	inst:ListenForEvent("newstate", OnNewState)
+
+    inst.OnDFPrefabSpawned = OnDFPrefabSpawned
 	
 	inst.OnLoad = OnLoad
 	inst.OnSave = OnSave
