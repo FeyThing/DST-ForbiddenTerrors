@@ -19,7 +19,8 @@ AddRoom("EvilForest", {
 	value = WORLD_TILES.EVILFOREST_NOISE,
 	contents = {
 		countstaticlayouts = {
-			["eviltrees"] = 10 + math.random(10, 18),
+			["eviltrees"] = 7 + math.random(8, 15),
+			["eviltrees_bald"] = 3 + math.random(3, 8),
 			["LivingTree"] = function() return math.random(1,2) end,
 		},
 		countprefabs = {
@@ -54,7 +55,7 @@ AddRoom("EvilForest Ponds", {
 			flint = 0.4,
 			fireflies = 0.33,
 			marsh_bush = 0.66,
-			eviltrees = 0.1
+			eviltrees_bald = 0.1
 		},
 	},
 })

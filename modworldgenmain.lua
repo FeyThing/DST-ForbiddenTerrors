@@ -21,6 +21,7 @@ local StaticLayout = require("map/static_layout")
 
 local evil_layouts = {
 	"eviltrees",
+	"eviltrees_bald",
 }
 
 for _, layout in ipairs(evil_layouts) do
