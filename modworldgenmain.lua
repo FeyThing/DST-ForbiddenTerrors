@@ -20,13 +20,20 @@ local Layouts = require("map/layouts").Layouts
 local StaticLayout = require("map/static_layout")
 
 local evil_layouts = {
-	"eviltrees",
-	"eviltrees_bald",
+	["eviltrees"] = {
+		defs = {
+			eviltrees = {"eviltree_tall1", "eviltree_tall2"},
+		},
+	},
 }
 
-for _, layout in ipairs(evil_layouts) do
-	Layouts[layout] = StaticLayout.Get("map/static_layouts/"..string.lower(layout))
-	Layouts[layout].ground_types = EVIL_GROUND_TYPES
+for k, v in pairs(evil_layouts) do
+	Layouts[k] = StaticLayout.Get("map/static_layouts/"..(v.name or string.lower(k)), {
+        layout_position = v.layout_position,
+        defs = v.defs,
+    })
+
+	Layouts[k].ground_types = EVIL_GROUND_TYPES
 end
 
 modimport("init/init_worldgen")

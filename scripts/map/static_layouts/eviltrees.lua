@@ -60,7 +60,7 @@ return {
         {
           id = 1,
           name = "Eviltree",
-          type = "eviltree_tall1",
+          type = "eviltrees",
           shape = "rectangle",
           x = 61.3333,
           y = 57.3333,
