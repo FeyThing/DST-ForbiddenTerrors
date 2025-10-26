@@ -1,5 +1,5 @@
 require("evilforest_util")
-require("evilforest_strings")
+require("strings/strings_en")
 
 GLOBAL.DF_DEV = GetModConfigData("devmode")
 if GLOBAL.DF_DEV then
@@ -12,6 +12,7 @@ local inits = {
     "init_tuning",
 	"init_actions",
     "init_RPC",
+    "init_languages",
     "init_postinit",
 	"init_assets",
     "init_prefabs",

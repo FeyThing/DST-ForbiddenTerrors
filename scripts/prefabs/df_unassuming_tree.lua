@@ -7,6 +7,8 @@ local assets = {
 local prefabs = {
 	"monstermeat",
 	"livinglog",
+	"monstermeat",
+	"df_hollowbark",
 	"character_fire",
 }
 
@@ -78,7 +80,7 @@ local UNASSUMING_LOOT = {
 	"livinglog",
 	"livinglog",
 	"monstermeat",
-	-- to-do
+	"df_hollowbark",
 }
 
 local function fn(build)

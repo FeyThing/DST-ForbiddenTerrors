@@ -27,6 +27,19 @@ server_filter_tags = {
 "biome",
 }
 
+local function CreateLanguageOption(name, default, label, hover)
+    return {
+        name = name,
+        label = label,
+		hover = hover,
+		
+        options = {
+            {description = "English", hover = "By Feything", data = "en"},
+        },
+        default = default or "en",
+    }
+end
+
 local options_enable = {
 	{description = "Disabled", data = false},
 	{description = "Enabled", data = true},
@@ -55,6 +68,7 @@ configuration_options =
         hover = "Enable this to turn your keyboard into a minefield of crazy debug hotkeys. (Only use if you know what you are doing!)",
 		default = false,
 	},
+	CreateLanguageOption("language", "en", "Language", "Change the mod language."),
 }
 
 -- Add default settings for options, don't have to rewrite same every time

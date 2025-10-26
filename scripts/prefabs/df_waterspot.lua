@@ -41,7 +41,6 @@ for k,v in pairs(weighted_loot) do
 	table.insert(land_prefabs, k)
 end
 
-local NUM_LOOTS = 2
 
 local MAX_CATCH_RADIUS = 1.4
 
@@ -107,23 +106,22 @@ local function OnLand(inst)
 		inst.AnimState:PlayAnimation("dissappear")
 	    SpawnPrefab("splash").Transform:SetPosition(x, y, z)
         inst:Remove()
-	--[[else
-		local item = SpawnPrefab(land_prefabs) --- ugh I know this is wrong
-		item.Transform:SetPosition(x, y, z)
+	else
+		local item = SpawnPrefab(weighted_random_choice(weighted_loot)).Transform:SetPosition(x, y, z)
 		item.Transform:SetRotation(inst.Transform:GetRotation())
 
 		item:DoTaskInTime(2*FRAMES, playlandfx)
 
-	    inst:Remove()]]
+	    inst:Remove()
 	end
 end
 
 local function OnMakeProjectile(inst)
 	StopUpdating(inst)
 
-   --[[inst:AddComponent("complexprojectile")
+    inst:AddComponent("complexprojectile")
     inst.components.complexprojectile:SetOnHit(OnLand)
-    ]]
+    
 
 	inst.Physics:SetCollisionMask(PROJECTILE_COLLISION_MASK)
 
@@ -223,7 +221,7 @@ local function waterfn(data)
     end
 
 	inst:AddComponent("oceanfishable")
-    --inst.components.oceanfishable.makeprojectilefn = OnMakeProjectile
+    inst.components.oceanfishable.makeprojectilefn = OnMakeProjectile
 	inst.components.oceanfishable.onreelinginfn = OnReelingIn
 	inst.components.oceanfishable.onreelinginpstfn = OnReelingInPst
 	inst.components.oceanfishable.onsetrodfn = OnSetRod

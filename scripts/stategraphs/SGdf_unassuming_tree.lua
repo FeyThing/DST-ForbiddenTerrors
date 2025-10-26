@@ -53,6 +53,7 @@ local states = {
 				inst.sg.mem.idlenum = math.random(1,NUM_IDLE_ANIMS)
 			end
 			inst.AnimState:PlayAnimation("chop"..inst.sg.mem.idlenum)
+			inst.SoundEmitter:PlaySound("turnoftides/common/together/driftwood/chop")
 		end,
 		
 		events = {
