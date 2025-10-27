@@ -9,10 +9,12 @@ PrefabFiles = {
 	"df_rock_water",
 	"df_waterspot",
 	"df_pan",
+	"df_hollowbark",
 	"df_mosquito",
 	"df_poison_ivy",
 	"eviltree_tall",
 	"scyther",
+	"df_shadow_seeker",
 	"waterfall_oceanevil",
 	"df_unassuming_tree",
 }

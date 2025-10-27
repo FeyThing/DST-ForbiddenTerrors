@@ -23,6 +23,8 @@ local sounds =
 SetSharedLootTable("mosquito",
 {
     {"mosquitosack", .5},
+    {"monstermeat", 1.0},
+    {"monstermeat", 1.0},
 })
 
 local SHARE_TARGET_DIST = 50
@@ -136,9 +138,9 @@ local function mosquito()
     inst.entity:AddDynamicShadow()
     inst.entity:AddNetwork()
 
-    MakeFlyingCharacterPhysics(inst, 1, 1)
+    MakeFlyingCharacterPhysics(inst, 2, 2)
 
-    inst.DynamicShadow:SetSize(1, 1)
+    inst.DynamicShadow:SetSize(2, 2)
     inst.Transform:SetFourFaced()
 
     inst:AddTag("mosquito")
@@ -153,7 +155,7 @@ local function mosquito()
     inst.AnimState:SetBuild("df_mosquito")
     inst.AnimState:PlayAnimation("idle")
     inst.AnimState:SetRayTestOnBB(true)
-
+    
 
     inst.entity:SetPristine()
 
