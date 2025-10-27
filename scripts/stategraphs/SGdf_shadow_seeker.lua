@@ -44,4 +44,4 @@ local states = {
 CommonStates.AddIdle(states, nil, "idle_loop")
 CommonStates.AddWalkStates(states, nil, {startwalk = "walk_pre", walk = "walk_loop", stopwalk = "walk_pst"})
 
-return StateGraph("df_unassuming_tree", states, events, "idle")
+return StateGraph("df_shadow_seeker", states, events, "idle")
