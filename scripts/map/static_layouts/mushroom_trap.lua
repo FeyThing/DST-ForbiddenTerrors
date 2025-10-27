@@ -1,0 +1,181 @@
+return {
+  version = "1.10",
+  luaversion = "5.1",
+  tiledversion = "1.10.2",
+  class = "",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 4,
+  height = 4,
+  tilewidth = 64,
+  tileheight = 64,
+  nextlayerid = 3,
+  nextobjectid = 10,
+  properties = {},
+  tilesets = {
+    {
+      name = "Don't Starve Together Terrains",
+      firstgid = 1,
+      filename = "../../../../../../Don't Starve Mod Tools/mod_tools/Tiled/DST Tileset/Don't Starve Together Terrains.tsx"
+    }
+  },
+  layers = {
+    {
+      type = "tilelayer",
+      x = 0,
+      y = 0,
+      width = 4,
+      height = 4,
+      id = 1,
+      name = "BG_TILES",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 2,
+      name = "FG_OBJECTS",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 1,
+          name = "skeleton",
+          type = "skeleton",
+          shape = "rectangle",
+          x = 93.9526,
+          y = 92.6429,
+          width = 68,
+          height = 69.3333,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 2,
+          name = "df_mushroom",
+          type = "df_mushroom",
+          shape = "rectangle",
+          x = 165.451,
+          y = 74.3182,
+          width = 18.8318,
+          height = 21.8583,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 3,
+          name = "df_mushroom",
+          type = "df_mushroom",
+          shape = "rectangle",
+          x = 117.699,
+          y = 46.4069,
+          width = 27.5751,
+          height = 25.5574,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 4,
+          name = "df_mushroom",
+          type = "df_mushroom",
+          shape = "rectangle",
+          x = 64.2298,
+          y = 66.2475,
+          width = 21.1857,
+          height = 23.2034,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 5,
+          name = "df_mushroom",
+          type = "df_mushroom",
+          shape = "rectangle",
+          x = 179.238,
+          y = 120.053,
+          width = 24.2123,
+          height = 25.8937,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "df_mushroom",
+          type = "df_mushroom",
+          shape = "rectangle",
+          x = 54.1413,
+          y = 120.725,
+          width = 24.5486,
+          height = 27.9114,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 7,
+          name = "df_mushroom",
+          type = "df_mushroom",
+          shape = "rectangle",
+          x = 174.866,
+          y = 176.548,
+          width = 26.9025,
+          height = 26.5662,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 8,
+          name = "df_mushroom",
+          type = "df_mushroom",
+          shape = "rectangle",
+          x = 121.061,
+          y = 184.955,
+          width = 23.2034,
+          height = 23.2034,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 9,
+          name = "df_mushroom",
+          type = "df_mushroom",
+          shape = "rectangle",
+          x = 61.2033,
+          y = 177.22,
+          width = 23.5397,
+          height = 24.8848,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    }
+  }
+}

@@ -40,14 +40,68 @@ AddRoom("EvilForest", {
 	},
 })
 
+AddRoom("EvilForest Graveyard", {
+	colour = {r = 0.3, g = 0.2, b = 0.1, a = 0.3},
+	tags = {"DF_Forest"},
+	value = WORLD_TILES.EVILFOREST_NOISE,
+	contents = {
+		countstaticlayouts = {
+			["shady_graveyard"] = 1,
+		},
+		countprefabs = {
+			df_berrybush = function() return math.random(4,6) end,
+		},
+		distributepercent = 0.07,
+		distributeprefabs = {
+			bigrocks = {weight = 0.2, prefabs = {"rock1", "rock_flintless"}},
+			flower_evil = 0.66,
+			df_berrybush = 0.44,
+			marsh_bush = 0.66,
+			fireflies = 0.33,
+			evergreen_sparse = 6,
+			mound = 0.5,
+			df_mushroom = 0.5,
+		},
+	},
+})
+
 AddRoom("EvilForest Ponds", {
 	colour = {r = 0.3, g = 0.2, b = 0.1, a = 0.3},
 	tags = {"DF_Forest", "DF_Rivers"},
 	value = WORLD_TILES.EVILFOREST,
 	contents = {
+		countstaticlayouts = {
+			["mushroom_trap"]=function()
+			if math.random(0,1000) > 985 then
+			return 1
+			end
+			return 0
+			end
+		},
 		distributepercent = 0.25,
 		distributeprefabs = {				
 			pond = 0.2,				
+			flower_evil = 0.3,
+			evergreen_sparse = 3,				
+			--df_grass = 1,
+			flint = 0.4,
+			fireflies = 0.33,
+			marsh_bush = 0.66,
+			eviltrees_bald = 0.1
+		},
+	},
+})
+
+AddRoom("EvilForest Outland", {
+	colour = {r = 0.3, g = 0.2, b = 0.1, a = 0.3},
+	tags = {"DF_Forest", "DF_Rivers"},
+	value = WORLD_TILES.EVILFOREST_NOISE,
+	contents = {
+		countstaticlayouts = {
+			["itchy_death"] = 1,
+		},
+		distributepercent = 0.25,
+		distributeprefabs = {							
 			flower_evil = 0.3,
 			evergreen_sparse = 3,				
 			--df_grass = 1,

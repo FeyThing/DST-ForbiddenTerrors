@@ -25,6 +25,10 @@ local evil_layouts = {
 			eviltrees = {"eviltree_tall1", "eviltree_tall2"},
 		},
 	},
+	["itchy_death"] = {},
+	["mushroom_trap"] = {},
+	["shady_graveyard"] = {},
+
 }
 
 for k, v in pairs(evil_layouts) do
