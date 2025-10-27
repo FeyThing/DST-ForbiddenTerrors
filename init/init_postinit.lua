@@ -27,6 +27,7 @@ local components_post = {
 }
 
 local prefabs_post = {
+    "oceanfish",
     "wilson",
     "world",
 }

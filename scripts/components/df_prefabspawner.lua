@@ -35,6 +35,7 @@ local _spawn_tasks = {}
 --------------------------------------------------------------------------
 
 local DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS = {"flotsam"}
+local DF_OCEANFISH_NOSPAWN_ONEOF_TAGS = {"oceanfish_small_df"}
 local DF_MOSQUITO_NOSPAWN_ONEOF_TAGS = {"df_mosquito"}
 local DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS = {"df_unassuming_tree"}
 
@@ -56,6 +57,24 @@ local presets =
                     TheWorld.Map:GetPlatformAtPoint(x, z) == nil and
                     #TheSim:FindEntities(x, y, z, 10, nil, nil, DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS) <= 0 and
                     FindClosestPlayerInRange(x, y, z, 4, true) == nil
+        end,
+    },
+    oceanfish_small_df = {
+        prefabs = { "oceanfish_small_df" },
+        timefn = function()
+            return GetRandomMinMax(TUNING.DF_OCEANFISH_SPAWN_DELAY.MIN, TUNING.DF_OCEANFISH_SPAWN_DELAY.MAX)
+        end,
+        radiusfn = function()
+            return GetRandomMinMax(5, 45)
+        end,
+        canspawnfn = function()
+            return not _worldstate.iswinter and not _worldstate.isnight
+        end,
+        spawncheckfn = function(x, y, z)
+            return _map:IsSurroundedByDFOcean(x, y, z, 1.25) and
+                    TheWorld.Map:GetPlatformAtPoint(x, z) == nil and
+                    #TheSim:FindEntities(x, y, z, 10, nil, nil, DF_OCEANFISH_NOSPAWN_ONEOF_TAGS) <= 0 and
+                    FindClosestPlayerInRange(x, y, z, 8, true) == nil
         end,
     },
     df_mosquito = {

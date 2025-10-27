@@ -85,6 +85,18 @@ local DF_TUNING = {
         MAX = TUNING.TOTAL_DAY_TIME * 4
     },
 
+    DF_OCEANFISH_SPAWN_DELAY = {
+        -- MIN = 30, 
+        -- MAX = 45
+        MIN = 30, 
+        MAX = 50
+    },
+
+    DF_OCEANFISH_LIFETIME = {
+        MIN = TUNING.TOTAL_DAY_TIME * 3,
+        MAX = TUNING.TOTAL_DAY_TIME * 4
+    },
+
     DF_MOSQUITO_SPAWN_DELAY = {
         -- MIN = 30, 
         -- MAX = 180
