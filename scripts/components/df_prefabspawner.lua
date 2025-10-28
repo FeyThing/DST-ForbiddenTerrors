@@ -119,12 +119,10 @@ local presets =
 --------------------------------------------------------------------------
 
 local function GetSpawnPointForPlayer(player, preset_name)
-    print("TRYING TO SPAWN", preset_name)
     local preset = presets[preset_name]
     if not player.indarkforest or preset.canspawnfn ~= nil and not preset.canspawnfn() then
         return
     end
-    print("CAN SPAWN", preset_name)
 
     local pt = player:GetPosition()
     local platform = player:GetCurrentPlatform()
@@ -157,7 +155,6 @@ local function GetSpawnPointForPlayer(player, preset_name)
         local resultoffset = FindValidPositionByFan(theta, preset.radiusfn(), 12, TestSpawnPoint)
 
         if resultoffset ~= nil then
-            print("FOUND POS", preset_name)
             return pt + resultoffset
         end
     end

@@ -8,76 +8,62 @@ local prefabs = {
 
 local brain = require("brains/df_shadowseekerbrain")
 
-local function retargetfn(inst)
-    local maxrangesq = TUNING.SHADOWCREATURE_TARGET_DIST * TUNING.SHADOWCREATURE_TARGET_DIST
-    local rangesq, rangesq1, rangesq2 = maxrangesq, math.huge, math.huge
-    local target1, target2 = nil, nil
-    for i, v in ipairs(AllPlayers) do
-        if not v:HasTag("playerghost") then
-            local distsq = v:GetDistanceSqToInst(inst)
-            if distsq < rangesq2 and inst.components.combat:CanTarget(v) then
-                    target2 = v
-                    rangesq2 = distsq
-                    rangesq = math.max(rangesq1, rangesq2)               
-            end
+local MAX_ALPHA = 1.0
+
+local function SetHider(inst, hider)
+    -- Lets play a game of hide and seek :)))))))))))))))))))))))))))))))
+    inst.hider = hider
+    inst.components.combat:EngageTarget(hider)
+    inst:PushEvent("startseeking")
+end
+
+local function SetAlpha(inst, alpha)
+	inst.AnimState:OverrideMultColour(1, 1, 1, alpha)
+	if inst.SoundEmitter ~= nil then
+		inst.SoundEmitter:OverrideVolumeMultiplier(alpha / MAX_ALPHA)
+	end
+    inst._alpha = alpha
+end
+
+local function CalculateTargetAlpha(inst)
+	local player = ThePlayer
+	if player == nil then
+		return 0
+	end
+
+	local combat = inst.replica.combat
+	if combat ~= nil and combat:GetTarget() == player then
+		return MAX_ALPHA
+	end
+
+    return 0
+end
+
+-- NOTE (HALF): Because net events are broken af with net entities -_-
+local function UpdateHider(inst)
+    if TheWorld.ismastersim then
+        local combat = inst.components.combat
+        local target = combat ~= nil and combat.target or nil
+        if target ~= inst.hider then
+            inst.components.combat:EngageTarget(inst.hider)
+            target = inst.hider
+        end
+        if inst.hider == nil or not inst.hider:IsValid() then
+            inst:PushEvent("stopseeking")
+            return
         end
     end
 
-	local forcechange = inst.forceretarget
-	inst.forceretarget = nil
-
-    if target1 ~= nil and rangesq1 <= math.max(rangesq2, maxrangesq * .25) then
-        --Targets with shadow dominance have higher priority within half targeting range
-        --Force target switch if current target does not have shadow dominance
-        return target1
+    local alpha = CalculateTargetAlpha(inst)
+    if inst._alpha ~= alpha then
+       SetAlpha(inst, alpha)
+       inst._alpha = alpha
     end
-	return target2, forcechange
 end
 
---- This is taken from the shadow creatures, Ichor buildup needs to replace the sanity conditions. So I'm commenting it out for now.
-
---[[local function keeptargetfn(inst, target)
-	if inst.sg.mem.forcedespawn then
-		return true
-	elseif target.components.sanity == nil then
-		--not player; could be bernie or other creature
-		if inst.wantstodespawn then
-			--don't deaggro, so you can actually see the despawn
-			inst.sg.mem.forcedespawn = true
-		end
-		return true
-	elseif target.components.sanity:IsCrazy() then
-		inst._deaggrotime = nil
-		return true
-	end
-
-	--start deaggro timer when target is becomes sane
-	local t = GetTime()
-	if inst._deaggrotime == nil then
-		inst._deaggrotime = t
-		return true
-	end
-
-	--V2C: NOTE: -combat cmp sets lastwasattackedbytargettime when retargeting also
-	--           -so it may use the longer delay sometimes even when not attacked
-	--           -this is fine XD
-	--
-	--Deaggro if target has been sane for 2.5s, hasn't hit us in 6s, and hasn't tried to attack us for 5s
-	if inst._deaggrotime + 2.5 >= t or
-		inst.components.combat.lastwasattackedbytargettime + 6 >= t or
-		(	target.components.combat and
-			target.components.combat:IsRecentTarget(inst) and
-			(target.components.combat.laststartattacktime or 0) + 5 >= t
-		)
-	then
-		return true
-	elseif inst.wantstodespawn then
-		--don't deaggro, so you can actually see the despawn
-		inst.sg.mem.forcedespawn = true
-		return true
-	end
-	return false
-end]]
+local function ForceUpdateAlpha(inst)
+    inst._alpha = nil
+end
 
 local function fn()
     local inst = CreateEntity()
@@ -100,13 +86,18 @@ local function fn()
     inst:AddTag("ignorewalkableplatformdrowning")
     inst:AddTag("largecreature")
 
-
-    MakeInventoryPhysics(inst)
+    MakeCharacterPhysics(inst, 10, 1.5)
+    RemovePhysicsColliders(inst)
+    inst.Physics:SetCollisionGroup(COLLISION.SANITY)
+    inst.Physics:CollidesWith(COLLISION.SANITY)
 	
     inst.AnimState:SetBank("df_shadow_seeker")
     inst.AnimState:SetBuild("df_shadow_seeker")
     inst.AnimState:PlayAnimation("idle_loop", true)
 
+    SetAlpha(inst, 0)
+    inst:AddComponent("updatelooper")
+    inst.components.updatelooper:AddOnUpdateFn(UpdateHider)
 	
     inst.entity:SetPristine()
 	
@@ -125,10 +116,15 @@ local function fn()
     inst.components.locomotor.pathcaps = { allowocean = true }
 
     inst:AddComponent("combat")
-        inst.components.combat:SetDefaultDamage(64)
-        inst.components.combat:SetAttackPeriod(2)
-        inst.components.combat:SetRetargetFunction(3, retargetfn)
-		--inst.ShouldKeepTarget = keeptargetfn 
+    inst.components.combat:SetDefaultDamage(64)
+    inst.components.combat:SetAttackPeriod(2)
+
+    inst.SetHider = SetHider
+
+    inst.OnEntityWake = ForceUpdateAlpha
+    inst.OnEntitySleep = ForceUpdateAlpha
+
+    inst.persists = false
 	
     return inst
 end

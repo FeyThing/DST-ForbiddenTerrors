@@ -112,6 +112,14 @@ local DF_TUNING = {
     },
 
     DF_UNASSUMING_TREE_MAX_SPAWNED = 20,
+
+    -- Rates of stuff that add or reduce ichor level
+    DF_ICHOR_RATE = {
+        DARKNESS = 0.05,
+    },
+    -- Min rate when ichor is blocked
+    DF_ICHOR_BLOCKED_MAX_RATE = -0.01,
+    DF_ICHOR_SANITY_DELTA_MULT = 100,
 }
 
 

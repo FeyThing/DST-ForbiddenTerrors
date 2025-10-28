@@ -1,5 +1,7 @@
 Assets = {
 	Asset( "ANIM", "anim/evil_canopy.zip"),
+
+    Asset( "ANIM", "anim/df_ichor_over.zip"),
 	
 	Asset( "ANIM", "anim/df_unassuming_tree.zip"),
 

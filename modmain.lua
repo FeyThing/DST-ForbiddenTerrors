@@ -22,3 +22,5 @@ local inits = {
 for _, v in pairs(inits) do
 	modimport("init/"..v)
 end
+
+AddReplicableComponent("df_ichormanager")

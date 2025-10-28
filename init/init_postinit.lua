@@ -24,6 +24,7 @@ local components_post = {
 	"inspectable",
     "locomotor",
     "birdspawner",
+    "sanity",
 }
 
 local prefabs_post = {

@@ -28,6 +28,11 @@ local function OnDarkForestChanged(inst)
 		if inst.indarkforest ~= indarkforest then
 			inst.indarkforest = indarkforest
 			inst:PushEvent("setindarkforest", indarkforest)
+            if indarkforest then
+                inst.components.grue:AddImmunity("darkforest")
+            else
+                inst.components.grue:RemoveImmunity("darkforest")
+            end
 		end
 	end
 end
@@ -56,5 +61,8 @@ ENV.AddPlayerPostInit(function(inst)
     if not TheWorld.ismastersim then
         return
     end
+
+    inst:AddComponent("df_ichormanager")
+
     inst:ListenForEvent("onchangeevilzone", OnChangeCanopyZone)
 end)
