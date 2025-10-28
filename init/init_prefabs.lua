@@ -11,6 +11,7 @@ PrefabFiles = {
 	"df_pan",
 	"df_hollowbark",
 	"df_mosquito",
+	"df_lantern",
 	"df_poison_ivy",
 	"eviltree_tall",
 	"scyther",
