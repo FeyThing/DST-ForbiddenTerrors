@@ -71,6 +71,11 @@ local DF_TUNING = {
 	DF_UNASSUMING_TREE_SIGHT_RANGE = 12,
 	DF_UNASSUMING_TREE_SIGHT_ANGLE = 120,
 
+    PIRANHA_ATTACK_RANGE = 1.5,
+    PIRANHA_ATTACK_PERIOD = 2,
+    PIRANHA_DAMAGE = 15,
+    PIRANHA_HEALTH = 100,
+
     DF_OCEANFISH_TARGET_DIST = 10,
 
     DF_DRIFTWOOD_CHOPS = TUNING.DRIFTWOOD_SMALL_CHOPS,
@@ -117,11 +122,11 @@ local DF_TUNING = {
 
     -- Rates of stuff that add or reduce ichor level
     DF_ICHOR_RATE = {
-        DARKNESS = 0.05,
+        DARKNESS = 0.10,
     },
     -- Min rate when ichor is blocked
     DF_ICHOR_BLOCKED_MAX_RATE = -0.01,
-    DF_ICHOR_SANITY_DELTA_MULT = 100,
+    DF_ICHOR_SANITY_DELTA_MULT = 10,
 }
 
 

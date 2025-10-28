@@ -67,9 +67,9 @@ end
 local function SwapBelly(inst, size)
     for i = 1, 3 do
         if i == size then
-            inst.AnimState:Show("body_"..tostring(i))
+            inst.AnimState:ShowSymbol("body_"..tostring(i))
         else
-            inst.AnimState:Hide("body_"..tostring(i))
+            inst.AnimState:HideSymbol("body_"..tostring(i))
         end
     end
 end
