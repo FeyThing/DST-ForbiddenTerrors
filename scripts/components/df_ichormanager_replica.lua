@@ -29,7 +29,7 @@ function DF_IchorManager:SetLevel(level)
             end
             TheFocalPoint.SoundEmitter:SetVolume("df_ichor_heartbeat", math.min(level, MAX_LEVEL)/MAX_LEVEL)
         else
-            TheFocalPoint.SoundEmitter:killSound("df_ichor_heartbeat")
+            TheFocalPoint.SoundEmitter:KillSound("df_ichor_heartbeat")
         end
     end
 
