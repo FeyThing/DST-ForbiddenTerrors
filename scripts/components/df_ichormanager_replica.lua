@@ -5,7 +5,6 @@ local function OnIchorLevelDirty(inst)
     end
 end
 
-
 local DF_IchorManager = Class(function(self, inst)
     self.inst = inst
 
@@ -17,10 +16,23 @@ local DF_IchorManager = Class(function(self, inst)
     end
 end)
 
+local MAX_LEVEL = 5
 function DF_IchorManager:SetLevel(level)
     if TheWorld.ismastersim then
         self._level:set(level)
     end
+
+    if not TheNet:IsDedicated() and self.inst == ThePlayer then
+        if level > 0 then
+            if self.level <= 0 then
+               TheFocalPoint.SoundEmitter:PlaySound("df_sound/set_sfx/HUD/df_ichor_heartbeat", "df_ichor_heartbeat")
+            end
+            TheFocalPoint.SoundEmitter:SetVolume("df_ichor_heartbeat", math.min(level, MAX_LEVEL)/MAX_LEVEL)
+        else
+            TheFocalPoint.SoundEmitter:killSound("df_ichor_heartbeat")
+        end
+    end
+
     self.level = level
     self.inst:PushEvent("df_ichorlevelchanged", level)
 end
