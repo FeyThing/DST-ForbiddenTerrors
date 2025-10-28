@@ -70,6 +70,7 @@ local function fn()
 	
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
+    inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
 
     inst.Transform:SetTwoFaced()
@@ -111,8 +112,8 @@ local function fn()
     inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
     inst.components.locomotor:EnableGroundSpeedMultiplier(false)
     inst.components.locomotor:SetTriggersCreep(false)
-    inst.components.locomotor.walkspeed = 7
-    inst.components.locomotor.runspeed = 9
+    inst.components.locomotor.walkspeed = 8
+    inst.components.locomotor.runspeed = 10
     inst.components.locomotor.pathcaps = { allowocean = true }
 
     inst:AddComponent("combat")

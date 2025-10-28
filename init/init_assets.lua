@@ -5,6 +5,9 @@ Assets = {
 	
 	Asset( "ANIM", "anim/df_unassuming_tree.zip"),
 
+	Asset("SOUNDPACKAGE", "sound/df_sound.fev"),
+	Asset("SOUND", "sound/df_sound.fsb"),
+
 	Asset("IMAGE", "images/evil_inventoryimages.tex"),
 	Asset("ATLAS", "images/evil_inventoryimages.xml"),
 	Asset("ATLAS_BUILD", "images/evil_inventoryimages.xml", 256),

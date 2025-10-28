@@ -141,9 +141,9 @@ function DF_IchorManager:Stop(force)
 end
 
 local SPAWN_THRESH = 100
-local DESPAWN_THRESH = 90
+local DESPAWN_THRESH = 80
 
-local LEVEL_THRESHOLDS = {10, 25, 50, 70, 95}
+local LEVEL_THRESHOLDS = {10, 20, 40, 60, 80}
 local MAX_LEVEL = #LEVEL_THRESHOLDS
 function DF_IchorManager:DoDelta(delta)
     if not self.immunity then
