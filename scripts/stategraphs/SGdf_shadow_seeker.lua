@@ -69,6 +69,10 @@ local states = {
 			
 			inst.AnimState:PlayAnimation("leech")
 			inst.components.combat:StartAttack()
+			inst.SoundEmitter:PlaySound("dontstarve/sanity/creature2/attack")
+			--[[local x, y, z = inst.Transform:GetWorldPosition()
+            local fx = SpawnPrefab("shadow_merm_smacked_poof_fx")
+            fx.Transform:SetPosition(x, y, z)]]
 			
 			inst.sg.statemem.target = inst.components.combat.target
 		end,
@@ -90,6 +94,16 @@ local states = {
 }
 
 CommonStates.AddIdle(states, nil, "idle_loop")
-CommonStates.AddWalkStates(states, nil, {startwalk = "walk_pre", walk = "walk_loop", stopwalk = "walk_pst"})
+CommonStates.AddWalkStates(states,
+{
+		walktimeline =
+    {
+        TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/together/stagehand/footstep") end),
+        TimeEvent(6*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/together/stagehand/footstep") end),
+        TimeEvent(17*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/together/stagehand/footstep") end),
+        TimeEvent(27*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/together/stagehand/footstep") end),
+    },
+	startwalk = "walk_pre", walk = "walk_loop", stopwalk = "walk_pst"
+})
 
 return StateGraph("df_shadow_seeker", states, events, "idle")

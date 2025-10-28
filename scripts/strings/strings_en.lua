@@ -8,7 +8,26 @@ STRINGS.CHARACTERS.GENERIC.ACTIONFAIL.DF_HIDEIN = {
 	OCCUPIED = "Looks like someone is already hiding here.",
 }
 
+--- Env
+NAMES.DF_GRASS = "Wild Grass"
+DESCRIBE.DF_GRASS = "It's tall enough to hide in."
+NAMES.DF_REEDS = "Bog Reeds"
+NAMES.DF_ROCK_WATER = "Submerged Rock"
+DESCRIBE.DF_ROCK_WATER = "Mining it could lose rocks."
+NAMES.DF_MUSHROOM = "Night Mushroom"
+NAMES.DF_CAP = "Night Cap"
+NAMES.DF_CAP_COOKED = "Grilled Night Cap"
+NAMES.DF_POISON_IVY = "Poison Ivy"
+NAMES.DF_BERRYBUSH = "Spiky BerryBush"
+NAMES.DF_DRIFTWOOD = "Gnarled Driftwood"
+NAMES.EVILTREE_TALL1 = "Ancient Tree"
+NAMES.EVILTREE_TALL2 = "Gnarled Tree"
+
+--- Mobs
+NAMES.DF_MOSQUITO = "Bog Mosquito"
 NAMES.DF_UNASSUMING_TREE = "Unassuming Tree"
+NAMES.OCEANFISH_SMALL_DF = "Unassuming Tree"
+
 
 --- Other
 DESCRIBE.TURF_EVILFOREST = "It's a creepy tuft of grass"
