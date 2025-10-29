@@ -55,11 +55,11 @@ local DF_TUNING = {
 		WIDENESS_MIN = 1,
 		WIDENESS_MAX = 3,
 	},
-    DF_MOSQUITO_HEALTH = 300,
+    DF_MOSQUITO_HEALTH = 600,
     DF_MOSQUITO_DAMAGE = 20,
     DF_MOSQUITO_ATTACK_RANGE = 5,
-    DF_MOSQUITO_ATTACK_PERIOD = 7,
-    DF_MOSQUITO_MAX_DRINKS = 12,
+    DF_MOSQUITO_ATTACK_PERIOD = 3,
+    DF_MOSQUITO_MAX_DRINKS = 6,
     DF_MOSQUITO_BURST_DAMAGE = 102,
     DF_MOSQUITO_BURST_RANGE = 6,
 	
@@ -118,7 +118,18 @@ local DF_TUNING = {
         MAX = 110
     },
 
-    DF_UNASSUMING_TREE_MAX_SPAWNED = 10,
+    DF_UNASSUMING_TREE_MAX_SPAWNED = 7,
+
+    DF_WATERSPOT_SPAWN_DELAY = {
+        -- MIN=30, 
+        -- MAX=180
+        MIN = 45, 
+        MAX = 90
+    },
+
+    DF_WATERSPOT_MAX_SPAWNED = 10,
+
+    
 
     -- Rates of stuff that add or reduce ichor level
     DF_ICHOR_RATE = {

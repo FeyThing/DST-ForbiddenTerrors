@@ -1,0 +1,99 @@
+Warning: QPainter::begin: Paint device returned engine == 0, type: 1
+Warning: QPainter::setPen: Painter not active
+Warning: QPainter::setBrush: Painter not active
+Warning: QPainter::setRenderHint: Painter must be active to set rendering hints
+Warning: QPainter::setPen: Painter not active
+Debug: "14:14:12 ..\..\src\propertyeditor.cpp:4234 ER: Set x 3D Auto Distance Filtering" 
+Debug: "14:14:20 ..\..\src\propertyeditor.cpp:4234 ER: Set x 3D Auto Distance Filtering" 
+Debug: 
+Building project 'df_sound'...
+Debug: Building project D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\df_sound.fev...
+Debug: Unique sound defs 1/3
+Debug: Retrieving sound file info...
+Debug: Retrieving reverb info...
+Debug: FEV file written ok
+Debug: Unique Envelope Points: 0 of 0
+Debug: Unique Strings: 206 characters of 206
+Debug: Caching sound file details for ''...
+Debug: sounds\piranha_atk.mp3
+Debug: sounds\thudding-heartbeat.mp3
+Debug: sounds\tree_walk1.mp3
+Debug: sounds\tree_walk2.mp3
+Debug: sounds\tree_walk3.mp3
+Debug: Building 'df_sound.fsb'
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\piranha_atk.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\thudding-heartbeat.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk2.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk1.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk3.mp3
+Debug: Writing FSB...
+Debug: Finished building FSB
+Debug: 
+Debug: 
+Summary of build:
+SUCCESS: D:/Steam/steamapps/common/Don't Starve Together/mods/DST-ForbiddenTerrors/sound/df_sound.fev
+SUCCESS: df_sound.fsb
+Debug: "15:11:32 c:\anthill_jobs\job504524\fmod4\tools\fmod_designer\src\eventform.ui.h:1529 HH: Add Simple Event" 
+Debug: "15:11:44 ..\..\src\simpleeventcontroller.cpp:1734 IS: Add Sound to Playlist" 
+Debug: "15:11:56 ..\..\src\propertyeditor.cpp:4234 ER: Set Mode" 
+Debug: "15:12:07 ..\..\src\propertyeditor.cpp:4234 ER: Set x 3D Auto Distance Filtering" 
+Debug: 
+Building project 'df_sound'...
+Debug: Building project D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\df_sound.fev...
+Debug: Unique sound defs 1/4
+Debug: Retrieving sound file info...
+Debug: Retrieving reverb info...
+Debug: FEV file written ok
+Debug: Unique Envelope Points: 0 of 0
+Debug: Unique Strings: 258 characters of 258
+Debug: Caching sound file details for ''...
+Debug: sounds\piranha_atk.mp3
+Debug: sounds\thudding-heartbeat.mp3
+Debug: sounds\tree_atk.mp3
+Debug: sounds\tree_walk1.mp3
+Debug: sounds\tree_walk2.mp3
+Debug: sounds\tree_walk3.mp3
+Debug: Building 'df_sound.fsb'
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\thudding-heartbeat.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\piranha_atk.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_atk.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk2.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk1.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk3.mp3
+Debug: Writing FSB...
+Debug: Finished building FSB
+Debug: 
+Debug: 
+Summary of build:
+SUCCESS: D:/Steam/steamapps/common/Don't Starve Together/mods/DST-ForbiddenTerrors/sound/df_sound.fev
+SUCCESS: df_sound.fsb
+Debug: 
+Building project 'df_sound'...
+Debug: Building project D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\df_sound.fev...
+Debug: Unique sound defs 1/4
+Debug: Retrieving sound file info...
+Debug: Retrieving reverb info...
+Debug: FEV file written ok
+Debug: Unique Envelope Points: 0 of 0
+Debug: Unique Strings: 258 characters of 258
+Debug: Caching sound file details for ''...
+Debug: sounds\piranha_atk.mp3
+Debug: sounds\thudding-heartbeat.mp3
+Debug: sounds\tree_atk.mp3
+Debug: sounds\tree_walk1.mp3
+Debug: sounds\tree_walk2.mp3
+Debug: sounds\tree_walk3.mp3
+Debug: Building 'df_sound.fsb'
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\thudding-heartbeat.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\piranha_atk.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk1.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk2.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_walk3.mp3
+Debug: Encoded D:\Steam\steamapps\common\Don't Starve Together\mods\DST-ForbiddenTerrors\sound\sounds\tree_atk.mp3
+Debug: Writing FSB...
+Debug: Finished building FSB
+Debug: 
+Debug: 
+Summary of build:
+SUCCESS: D:/Steam/steamapps/common/Don't Starve Together/mods/DST-ForbiddenTerrors/sound/df_sound.fev
+SUCCESS: df_sound.fsb

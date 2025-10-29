@@ -15,6 +15,7 @@ local inits = {
     "init_languages",
     "init_postinit",
 	"init_assets",
+    "init_recipes",
     "init_prefabs",
 	"init_widgets",
 }

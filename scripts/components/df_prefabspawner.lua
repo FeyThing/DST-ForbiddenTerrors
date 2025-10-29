@@ -38,6 +38,7 @@ local DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS = {"flotsam"}
 local DF_OCEANFISH_NOSPAWN_ONEOF_TAGS = {"oceanfish_small_df"}
 local DF_MOSQUITO_NOSPAWN_ONEOF_TAGS = {"df_mosquito"}
 local DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS = {"df_unassuming_tree"}
+local DF_WATERSPOT_NOSPAWN_ONEOF_TAGS = {"df_waterspot"}
 
 local presets =
 {
@@ -110,6 +111,23 @@ local presets =
             return _map:IsSurroundedByLand(x, y, z, 1) and
                     #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS) <= 0 and
                     FindClosestPlayerInRange(x, y, z, 30) == nil
+        end,
+    },
+        df_waterspot = {
+        prefabs = { "df_waterspot" }, 
+        timefn = function()
+            return GetRandomMinMax(TUNING.DF_WATERSPOT_SPAWN_DELAY.MIN, TUNING.DF_WATERSPOT_SPAWN_DELAY.MAX)
+        end,
+        radiusfn = function()
+            return GetRandomMinMax(35, 45)
+        end,
+        canspawnfn = function()
+            return _world:HasTag("df_fog_ongoing") and _num_spawned.df_waterspot < TUNING.DF_WATERSPOT_MAX_SPAWNED
+        end,
+        spawncheckfn = function(x, y, z)
+            return _map:IsSurroundedByLand(x, y, z, 1) and
+                    #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_WATERSPOT_NOSPAWN_ONEOF_TAGS) <= 0 and
+                    FindClosestPlayerInRange(x, y, z, 20) == nil
         end,
     },
 }

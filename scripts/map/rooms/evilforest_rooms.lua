@@ -24,6 +24,7 @@ AddRoom("EvilForest", {
 		},
 		countprefabs = {
 			df_berrybush = function() return math.random(4,6) end,
+			df_mushroom = function() return math.random(2,5) end,
 		},
 		distributepercent = 0.07,
 		distributeprefabs = {
@@ -35,6 +36,7 @@ AddRoom("EvilForest", {
 			fireflies = 0.33,
 			evergreen_sparse = 6,
 			gravestone = 0.5,
+
 			df_mushroom = 0.5,
 		},
 	},
@@ -61,6 +63,7 @@ AddRoom("EvilForest Graveyard", {
 			evergreen_sparse = 6,
 			mound = 0.5,
 			df_mushroom = 0.5,
+			green_mushromm = 0.4,
 		},
 	},
 })
@@ -123,7 +126,6 @@ AddRoom("EvilForest Bog", {
 			fireflies = 0.33,
 			df_reeds = 0.63,
 			df_rock_water = 0.6,
-			df_waterspot = 0.3,
 			driftwood_log = 0.2,
 		},
 	},

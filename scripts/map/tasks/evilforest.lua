@@ -8,8 +8,8 @@ AddTask("Evil Forest", {
 	room_tags = {"RoadPoison", "not_mainland"},
 	room_choices={
 		["EvilForest"] = function() return 1 + math.random(SIZE_VARIATION) end,
-		["EvilForest Ponds"] = function() return 1 + math.random(SIZE_VARIATION) end,
-		["EvilForest Bog"] = 2,
+		["EvilForest Ponds"] = function() return math.random(SIZE_VARIATION) end,
+		["EvilForest Bog"] = 1,
 		["EvilForest Outland"] = function() return math.random(SIZE_VARIATION) end,
 		["EvilForest Graveyard"] = 1,
 		["BG EvilForest"] = function() return math.random(SIZE_VARIATION) end,

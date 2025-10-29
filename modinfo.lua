@@ -1,7 +1,7 @@
-name = "Dark Forest"
-description = "A biome template."
+name = "Forbidden Terrors"
+description = "Journey to A horrible island.."
 author = "Feything"
-version = "1.0" 
+version = "1.2" 
 
 
 forumthread = ""

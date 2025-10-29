@@ -65,6 +65,25 @@ local function ForceUpdateAlpha(inst)
     inst._alpha = nil
 end
 
+local function OnNewTarget(inst, data)
+	print("OnNewTarget", data.target, data.oldtarget)
+	if data then
+		if data.oldtarget then
+			inst:RemoveEventCallback("df_onhide", inst.on_hider_hide, data.oldtarget)
+		end
+		if data.target then
+			inst:ListenForEvent("df_onhide", inst.on_hider_hide, data.target)
+		end
+	end
+end
+
+local function OnTimerOver(inst, data)
+	if data.name == "peek_in_hidingspot" then
+		inst.wants_to_peek = true
+		inst.components.timer:StartTimer("peek_in_hidingspot", 1 + math.random() * 9)
+	end
+end
+
 local function fn()
     local inst = CreateEntity()
 	
@@ -72,9 +91,9 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
-
+	
     inst.Transform:SetTwoFaced()
-
+	
     inst:AddTag("shadowcreature")
     inst:AddTag("gestaltnoloot")
     inst:AddTag("monster")
@@ -86,7 +105,7 @@ local function fn()
     inst:AddTag("flying")
     inst:AddTag("ignorewalkableplatformdrowning")
     inst:AddTag("largecreature")
-
+	
     MakeCharacterPhysics(inst, 10, 1.5)
     RemovePhysicsColliders(inst)
     inst.Physics:SetCollisionGroup(COLLISION.SANITY)
@@ -95,7 +114,7 @@ local function fn()
     inst.AnimState:SetBank("df_shadow_seeker")
     inst.AnimState:SetBuild("df_shadow_seeker")
     inst.AnimState:PlayAnimation("idle_loop", true)
-
+	
     SetAlpha(inst, 0)
     inst:AddComponent("updatelooper")
     inst.components.updatelooper:AddOnUpdateFn(UpdateHider)
@@ -105,27 +124,40 @@ local function fn()
     if not TheWorld.ismastersim then
         return inst
     end
-	inst:SetStateGraph("SGdf_shadow_seeker")
-    inst:SetBrain(brain)
-    ----------
-
+	
     inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
     inst.components.locomotor:EnableGroundSpeedMultiplier(false)
     inst.components.locomotor:SetTriggersCreep(false)
     inst.components.locomotor.walkspeed = 8
     inst.components.locomotor.runspeed = 10
     inst.components.locomotor.pathcaps = { allowocean = true }
-
+	
+	inst:SetStateGraph("SGdf_shadow_seeker")
+    inst:SetBrain(brain)
+	
     inst:AddComponent("combat")
     inst.components.combat:SetDefaultDamage(64)
     inst.components.combat:SetAttackPeriod(2)
-
+	
+	inst:AddComponent("timer")
+	inst.components.timer:StartTimer("peek_in_hidingspot", 4 + math.random(3))
+    
     inst.SetHider = SetHider
-
     inst.OnEntityWake = ForceUpdateAlpha
     inst.OnEntitySleep = ForceUpdateAlpha
-
+	
     inst.persists = false
+	inst.on_hider_hide = function(guy, data)
+		local dist = guy and guy:GetDistanceSqToInst(inst) or 90
+		
+		if dist < 90 then
+			inst.wants_to_peek = true
+			inst.peek_target = data.hidingspot
+		end
+	end
+	
+	inst:ListenForEvent("newcombattarget", OnNewTarget)
+	inst:ListenForEvent("timerdone", OnTimerOver)
 	
     return inst
 end
