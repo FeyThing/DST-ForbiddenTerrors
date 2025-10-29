@@ -87,6 +87,8 @@ local states = {
 		end,
 		
 		timeline = {
+			TimeEvent(0*FRAMES, function(inst)
+				inst.SoundEmitter:PlaySound("df_sound/set_sfx/creature/df_tree_atk") end),
 			TimeEvent(12*FRAMES, function(inst)
 				inst.components.combat:DoAttack(inst.sg.statemem.target)
 			end),
@@ -102,6 +104,18 @@ local states = {
 	},
 }
 CommonStates.AddIdle(states, nil, "idle1")
-CommonStates.AddWalkStates(states, nil, {startwalk = "walk", walk = "walk", stopwalk = "walk"})
+CommonStates.AddWalkStates(states,
+{
+		walktimeline =
+    {
+        TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("df_sound/set_sfx/movement/df_tree_walk") end),
+        TimeEvent(6*FRAMES, function(inst) inst.SoundEmitter:PlaySound("df_sound/set_sfx/movement/df_tree_walk") end),
+        TimeEvent(17*FRAMES, function(inst) inst.SoundEmitter:PlaySound("df_sound/set_sfx/movement/df_tree_walk") end),
+        TimeEvent(27*FRAMES, function(inst) inst.SoundEmitter:PlaySound("df_sound/set_sfx/movement/df_tree_walk") end),
+    },
+},
+{
+	startwalk = "walk", walk = "walk", stopwalk = "walk"
+})
 
 return StateGraph("df_unassuming_tree", states, events, "idle")

@@ -25,7 +25,7 @@ local states ={
         timeline =
         {
 
-            TimeEvent(14*FRAMES, function(inst) inst.SoundEmitter:PlaySound("turnoftides/common/together/water/swim/medium") end),
+            TimeEvent(14*FRAMES, function(inst) inst.SoundEmitter:PlaySound("df_sound/set_sfx/creature/df_piranha_atk") end),
             TimeEvent(16*FRAMES, function(inst) inst.components.combat:DoAttack(inst.sg.statemem.target) end),
         },
 
