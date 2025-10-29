@@ -30,11 +30,6 @@ local function OnRespawned(inst)
     self:RemoveImmunitySource(self.inst, "death")
 end
 
-local function OnDarkForestChanged(inst)
-    local self = inst.components.df_ichormanager
-    self:Start()
-end
-
 local function OnInit(inst, self)
     self.inittask = nil
     inst:ListenForEvent("enterdark", OnEnterDark)
@@ -42,7 +37,6 @@ local function OnInit(inst, self)
     inst:ListenForEvent("invincibletoggle", OnInvincibleToggle)
     inst:ListenForEvent("death", OnDeath)
     inst:ListenForEvent("ms_respawnedfromghost", OnRespawned)
-    inst:ListenForEvent("setindarkforest", OnDarkForestChanged)
 
 	if inst.components.health ~= nil and inst.components.health:IsDead() then
 		self:AddImmunitySource(self.inst, "death")
@@ -53,6 +47,8 @@ local function OnInit(inst, self)
 	if not inst:IsInLight() then
 		self:AddRateSource(self.inst, TUNING.DF_ICHOR_RATE.DARKNESS, "darkness")
 	end
+
+    self:CheckForUpdate()
 end
 
 local function onlevel(self, level)
@@ -83,29 +79,51 @@ nil,
 function DF_IchorManager:AddRateSource(src, rate, key)
     self.ratesources:SetModifier(src, rate, key)
     self.rate = self.ratesources:Get()
-    self:Start()
 end
 
 function DF_IchorManager:RemoveRateSource(src, key)
     self.ratesources:RemoveModifier(src, key)
     self.rate = self.ratesources:Get()
-    self:Start()
 end
 
 function DF_IchorManager:AddImmunitySource(src, key)
     self.immunitysources:SetModifier(src, true, key)
     self.immunity = self.immunitysources:Get()
-    self:Start()
+    self:CheckForUpdate()
 end
 
 function DF_IchorManager:RemoveImmunitySource(src, key)
     self.immunitysources:RemoveModifier(src, key)
     self.immunity = self.immunitysources:Get()
-    self:Start()
+    self:CheckForUpdate()
+end
+
+function DF_IchorManager:CheckForUpdate()
+    if self.immunity then
+        self:_Start()
+    else
+        self:_Stop()
+    end
+end
+
+function DF_IchorManager:_Start()
+    if self.enabled then
+        self.enabled = false
+        self.inst:StopUpdatingComponent(self) 
+        self:DoDelta(0)
+    end
+end
+
+function DF_IchorManager:_Stop()
+    if not self.enabled then
+        self.enabled = true
+        self.inst:StartUpdatingComponent(self) 
+        self:DoDelta(0)
+    end
 end
 
 function DF_IchorManager:OnRemoveFromEntity()
-    self:Stop(true)
+    self:_Stop()
     if self.inittask ~= nil then
         self.inittask:Cancel()
         self.inittask = nil
@@ -115,28 +133,6 @@ function DF_IchorManager:OnRemoveFromEntity()
         self.inst:RemoveEventCallback("invincibletoggle", OnInvincibleToggle)
         self.inst:RemoveEventCallback("death", OnDeath)
         self.inst:RemoveEventCallback("ms_respawnedfromghost", OnRespawned)
-        self.inst:RemoveEventCallback("setindarkforest", OnDarkForestChanged)
-    end
-end
-
-function DF_IchorManager:ShouldUpdate()
-    return not self.immunity and self.rate ~= 0 or self.seeker ~= nil
-end
-
-function DF_IchorManager:Start(force)
-    if not self.enabled and (force or self:ShouldUpdate() and self.inst.indarkforest) then
-        self.enabled = true
-        self.inst:StartUpdatingComponent(self)
-    end
-end
-
-function DF_IchorManager:Stop(force)
-    if self.enabled and (force or not self:ShouldUpdate()) then
-        self.enabled = false
-        self.inst:StopUpdatingComponent(self)
-        if self.immunity then
-            self:SetPercent(0)
-        end
     end
 end
 
@@ -180,14 +176,25 @@ function DF_IchorManager:SetPercent(perc)
     self:DoDelta(0)
 end
 
+
+local DF_ICHOR_MUST_TAGS = { "df_ichoraura" }
 function DF_IchorManager:OnUpdate(dt)
     local rate = self.rate
     if self.seeker ~= nil or not self.inst.indarkforest then
         rate = math.min(rate, TUNING.DF_ICHOR_BLOCKED_MAX_RATE)
     end
-    self:DoDelta(rate)
 
-    self:Stop()
+    local x, y, z = self.inst.Transform:GetWorldPosition()
+    local ents = TheSim:FindEntities(x, y, z, TUNING.DF_ICHOR_AURA_SEACH_RANGE, DF_ICHOR_MUST_TAGS)
+    for i, v in ipairs(ents) do
+        if v.components.df_ichoraura ~= nil and v ~= self.inst then
+            rate = rate + v.components.df_ichoraura:GetAura(self.inst)
+        end
+    end
+
+    if rate ~= 0 then
+        self:DoDelta(rate)
+    end
 end
 
 function DF_IchorManager:DespawnSeeker()

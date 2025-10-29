@@ -127,6 +127,11 @@ local DF_TUNING = {
     -- Min rate when ichor is blocked
     DF_ICHOR_BLOCKED_MAX_RATE = -0.01,
     DF_ICHOR_SANITY_DELTA_MULT = 10,
+
+    DF_ICHOR_EFFECT_RANGE = 10,
+    DF_ICHOR_AURA_SEACH_RANGE = 20,
+
+    DF_LANTERN_ICHOR_AURA = -1,
 }
 
 

@@ -181,6 +181,13 @@ local function ontakefuel(inst)
     end
 end
 
+local function GetIchorAura(inst, observer)
+    if inst.components.machine.ison then
+        return TUNING.DF_LANTERN_ICHOR_AURA
+    end
+    return 0
+end
+
 --------------------------------------------------------------------------
 
 local function OnLightWake(inst)
@@ -247,6 +254,9 @@ local function fn()
     end
 
     inst:AddComponent("inspectable")
+
+    inst:AddComponent("df_ichoraura")
+    inst.components.df_ichoraura.aurafn = GetIchorAura
 
     local inventoryitem = inst:AddComponent("inventoryitem")
     inventoryitem:SetOnDroppedFn(ondropped)
