@@ -7,10 +7,10 @@ AddTask("Evil Forest", {
 	level_set_piece_blocker = true,
 	room_tags = {"RoadPoison", "not_mainland"},
 	room_choices={
-		["EvilForest"] = function() return 4 + math.random(SIZE_VARIATION) end,
-		["EvilForest Ponds"] = function() return 2 + math.random(SIZE_VARIATION) end,
+		["EvilForest"] = function() return 1 + math.random(SIZE_VARIATION) end,
+		["EvilForest Ponds"] = function() return 1 + math.random(SIZE_VARIATION) end,
 		["EvilForest Bog"] = 2,
-		["EvilForest Outland"] = 1,
+		["EvilForest Outland"] = function() return math.random(SIZE_VARIATION) end,
 		["EvilForest Graveyard"] = 1,
 		["BG EvilForest"] = function() return math.random(SIZE_VARIATION) end,
 	},

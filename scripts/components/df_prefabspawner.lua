@@ -55,8 +55,8 @@ local presets =
         spawncheckfn = function(x, y, z)
             return _map:IsSurroundedByDFOcean(x, y, z, 1.25) and
                     TheWorld.Map:GetPlatformAtPoint(x, z) == nil and
-                    #TheSim:FindEntities(x, y, z, 10, nil, nil, DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS) <= 0 and
-                    FindClosestPlayerInRange(x, y, z, 4, true) == nil
+                    #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS) <= 0 and
+                    FindClosestPlayerInRange(x, y, z, 5, true) == nil
         end,
     },
     oceanfish_small_df = {
@@ -91,8 +91,8 @@ local presets =
         spawncheckfn = function(x, y, z)
             return _map:IsSurroundedByDFOcean(x, y, z, 1) and
                     TheWorld.Map:GetPlatformAtPoint(x, z) == nil and
-                    #TheSim:FindEntities(x, y, z, 10, nil, nil, DF_MOSQUITO_NOSPAWN_ONEOF_TAGS) <= 0 and
-                    FindClosestPlayerInRange(x, y, z, 8, true) == nil
+                    #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_MOSQUITO_NOSPAWN_ONEOF_TAGS) <= 0 and
+                    FindClosestPlayerInRange(x, y, z, 10, true) == nil
         end,
     },
     df_unassuming_tree = {
@@ -108,7 +108,7 @@ local presets =
         end,
         spawncheckfn = function(x, y, z)
             return _map:IsSurroundedByLand(x, y, z, 1) and
-                    #TheSim:FindEntities(x, y, z, 10, nil, nil, DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS) <= 0 and
+                    #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS) <= 0 and
                     FindClosestPlayerInRange(x, y, z, 30) == nil
         end,
     },

@@ -83,8 +83,8 @@ local DF_TUNING = {
     DF_DRIFTWOOD_SPAWN_DELAY = {
         -- MIN = 30, 
         -- MAX = 45
-        MIN = 40, 
-        MAX = 80
+        MIN = 90, 
+        MAX = 110
     },
 
     DF_DRIFTWOOD_LIFETIME = {
@@ -107,18 +107,18 @@ local DF_TUNING = {
     DF_MOSQUITO_SPAWN_DELAY = {
         -- MIN = 30, 
         -- MAX = 180
-        MIN = 15, 
-        MAX = 20
+        MIN = 60, 
+        MAX = 90
     },
 
     DF_UNASSUMING_TREE_SPAWN_DELAY = {
         -- MIN=30, 
         -- MAX=180
-        MIN = 40, 
-        MAX = 80
+        MIN = 60, 
+        MAX = 110
     },
 
-    DF_UNASSUMING_TREE_MAX_SPAWNED = 20,
+    DF_UNASSUMING_TREE_MAX_SPAWNED = 10,
 
     -- Rates of stuff that add or reduce ichor level
     DF_ICHOR_RATE = {
@@ -128,8 +128,8 @@ local DF_TUNING = {
     DF_ICHOR_BLOCKED_MAX_RATE = -0.01,
     DF_ICHOR_SANITY_DELTA_MULT = 10,
 
-    DF_ICHOR_EFFECT_RANGE = 10,
-    DF_ICHOR_AURA_SEACH_RANGE = 20,
+    DF_ICHOR_EFFECT_RANGE = 5,
+    DF_ICHOR_AURA_SEACH_RANGE = 10,
 
     DF_LANTERN_ICHOR_AURA = -1,
 }

@@ -7,7 +7,7 @@ AddRoom("BG EvilForest", {
 		distributeprefabs = {
 			marsh_tree = 1,
 			marsh_bush = 0.66,
-			--df_grass = 0.66,
+			bigrocks = {weight = 0.6, prefabs = {"rock1", "rock_flintless"}},
 			dead_sea_bones = 0.5,
 		},
 	}
@@ -68,7 +68,7 @@ AddRoom("EvilForest Graveyard", {
 AddRoom("EvilForest Ponds", {
 	colour = {r = 0.3, g = 0.2, b = 0.1, a = 0.3},
 	tags = {"DF_Forest", "DF_Rivers"},
-	value = WORLD_TILES.EVILFOREST,
+	value = WORLD_TILES.FOREST,
 	contents = {
 		countstaticlayouts = {
 			["mushroom_trap"]=function()
@@ -124,6 +124,7 @@ AddRoom("EvilForest Bog", {
 			df_reeds = 0.63,
 			df_rock_water = 0.6,
 			df_waterspot = 0.3,
+			driftwood_log = 0.2,
 		},
 	},
 })
