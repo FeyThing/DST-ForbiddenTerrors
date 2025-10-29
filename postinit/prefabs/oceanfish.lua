@@ -106,28 +106,13 @@ local RETARGET_ONEOF_TAGS = { "character", "monster" }
 local range = TUNING.DF_OCEANFISH_TARGET_DIST
 
 local function Retarget(inst)
-    local homePos = inst.components.knownlocations:GetLocation("home")
-
-    return not (homePos ~= nil and
-                inst:GetDistanceSqToPoint(homePos:Get()) >= range * range and
-                (inst.components.follower == nil or inst.components.follower.leader == nil))
-        and FindEntity(
-            inst,
-            range,
-            function(guy)
-                return inst.components.combat:CanTarget(guy)
-            end,
-            RETARGET_MUST_TAGS,
-            RETARGET_CANT_TAGS,
-            RETARGET_ONEOF_TAGS
-        )
-        or nil
+    return FindEntity(inst, range, function(guy)
+        return inst.components.combat:CanTarget(guy) and not TheWorld.Map:IsVisualGroundAtPoint(guy.Transform:GetWorldPosition())
+    end, RETARGET_MUST_TAGS, RETARGET_CANT_TAGS, RETARGET_ONEOF_TAGS)
 end
 
 local function KeepTarget(inst, target)
-    local homePos = inst.components.knownlocations:GetLocation("home")
-    return (inst.components.follower ~= nil and inst.components.follower.leader ~= nil)
-        or (homePos ~= nil and target:GetDistanceSqToPoint(homePos:Get()) < MAX_CHASEAWAY_DIST_SQ)
+    return not TheWorld.Map:IsVisualGroundAtPoint(target.Transform:GetWorldPosition())
 end
 
 local function _ShareTargetFn(dude)
@@ -154,14 +139,14 @@ ENV.AddPrefabPostInit("oceanfish_small_df", function(inst)
 
 	local combat = inst:AddComponent("combat")
     combat.hiteffectsymbol = "smol_bod_water"
-	combat:SetRange(TUNING.MOSQUITO_ATTACK_RANGE)
-    combat:SetAttackPeriod(TUNING.KNIGHT_ATTACK_PERIOD)
-    combat:SetDefaultDamage(TUNING.KNIGHT_DAMAGE)
+	combat:SetRange(TUNING.PIRANHA_ATTACK_RANGE)
+    combat:SetAttackPeriod(TUNING.PIRANHA_ATTACK_PERIOD)
+    combat:SetDefaultDamage(TUNING.PIRANHA_DAMAGE)
     combat:SetRetargetFunction(3, Retarget)
     combat:SetKeepTargetFunction(KeepTarget)
 
 	local health = inst:AddComponent("health")
-    health:SetMaxHealth(TUNING.SPIDER_HEALTH)
+    health:SetMaxHealth(TUNING.PIRANHA_HEALTH)
 
     --
     inst:AddComponent("inspectable")

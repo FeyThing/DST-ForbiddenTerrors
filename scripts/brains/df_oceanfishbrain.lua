@@ -11,7 +11,7 @@ local KEEP_FACE_DIST = 8
 local GO_HOME_DIST = 1
 local MAX_CHASE_TIME = 10
 local MAX_CHASE_DIST = 20
-local RUN_AWAY_DIST = 5
+local RUN_AWAY_DIST = 4
 local STOP_RUN_AWAY_DIST = 8
 
 local SPLASH_AVOID_DIST = 2
@@ -209,6 +209,11 @@ local function ShouldGoHome(inst)
     return homePos ~= nil and inst:GetDistanceSqToPoint(homePos:Get()) > GO_HOME_DIST * GO_HOME_DIST
 end
 
+local function ShouldRunAway(inst, target)
+    local x, y, z = target.Transform:GetWorldPosition()
+    return TheWorld.Map:IsVisualGroundAtPoint(x, y, z )
+end
+
 function Df_OceanFishBrain:OnStart()
     local root = PriorityNode(
     {
@@ -251,8 +256,9 @@ function Df_OceanFishBrain:OnStart()
 					})
 				),
 
-				RunAway(self.inst, "oceansplash", SPLASH_AVOID_DIST, SPLASH_AVOID_STOP),
-				RunAway(self.inst, {tags = {"scarytooceanprey"}}, SCARY_AVOID_DIST, SCARY_AVOID_STOP), -- using this to disable the "NOCLICK" no tag
+				RunAway(self.inst, "character", RUN_AWAY_DIST, STOP_RUN_AWAY_DIST, function(target)
+    				return ShouldRunAway(self.inst, target)
+				end, false, nil, true),
 
 				NotDecorator(ActionNode(function() FindFoodAction(self.inst) end)),
 				WhileNode(function() return GetFoodTarget(self.inst) ~= nil end, "FeedingTime",

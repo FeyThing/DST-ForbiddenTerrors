@@ -28,11 +28,13 @@ local function OnDarkForestChanged(inst)
 		if inst.indarkforest ~= indarkforest then
 			inst.indarkforest = indarkforest
 			inst:PushEvent("setindarkforest", indarkforest)
-            if indarkforest then
-                inst.components.grue:AddImmunity("darkforest")
-            else
-                inst.components.grue:RemoveImmunity("darkforest")
-            end
+			if inst.components.grue then
+				if indarkforest then
+					inst.components.grue:AddImmunity("darkforest")
+				else
+					inst.components.grue:RemoveImmunity("darkforest")
+				end
+			end
 		end
 	end
 end
