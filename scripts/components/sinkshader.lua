@@ -38,12 +38,6 @@ local SinkShader = Class(function(self, inst)
     self._erode_time = net_float(inst.GUID, "sinkshader._erode_time", "erodetimedirty")
 end)
 
-function IsOnDFOcean(self)
-    local x, y, z = self.inst.Transform:GetWorldPosition()
-    local tile = TheWorld.Map:GetTileAtPoint(x, y, z)
-    return DF_OCEAN_TILES[tile] ~= nil
-end
-
 function SinkShader:SetScale(scale)
     if scale ~= nil then
         if type(scale) == "table" then
@@ -110,9 +104,14 @@ function SinkShader:NoRipples()
     end
 end
 
+local FLOATING_TAGS = {"playerghost", "ghost", "shadow", "brightmare", "flying"}
 function SinkShader:OnUpdate(dt)
     local x, y, z = self.inst.Transform:GetWorldPosition()
     local _map = TheWorld.Map
+    if self.inst.sg ~= nil and self.inst.sg:HasStateTag("jumping") or self.inst:HasOneOfTags(FLOATING_TAGS) then
+        self:SetSubmergedAmount(0)
+        return
+    end
     if _map:IsSurroundedByWater(x, y, z, 0.25) and _map:IsOceanAtPoint(x, y, z) then
         local tile = _map:GetTileAtPoint(x, y, z)
         if tile == WORLD_TILES.OCEAN_EVIL then
@@ -122,9 +121,6 @@ function SinkShader:OnUpdate(dt)
             self:SetSubmergedAmount(1)
             return
         end
-    end
-    if self.inst.sg ~= nil and self.inst.sg:HasStateTag("jumping") then
-        self:SetSubmergedAmount(0)
     end
     self:SetSubmergedAmount(0)
 end

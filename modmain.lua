@@ -7,6 +7,9 @@ if GLOBAL.DF_DEV then
     modimport("init/init_debugcommands")
 end
 
+DFUpvalueHacker = require("tools/df_upvaluehacker")
+GLOBAL.DFUpvalueHacker = DFUpvalueHacker
+
 local inits = {
     "init_constants",
     "init_tuning",

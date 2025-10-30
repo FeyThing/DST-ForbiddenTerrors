@@ -18,4 +18,5 @@ PrefabFiles = {
 	"df_shadow_seeker",
 	"waterfall_oceanevil",
 	"df_unassuming_tree",
+    "df_oceanshadowcreature",
 }

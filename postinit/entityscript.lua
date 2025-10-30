@@ -137,3 +137,8 @@ function EntityScript:GetWorldStateCallbacks(var, source_file)
 
     return fns
 end
+
+function EntityScript:IsOnDFOcean(allow_boats)
+    local x, y, z = self.Transform:GetWorldPosition()
+    return TheWorld.Map:IsDFOceanAtPoint(x, y, z, allow_boats)
+end

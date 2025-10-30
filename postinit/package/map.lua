@@ -80,10 +80,20 @@ function Map:IsDarkForestFogBlocked(x, y, z)
 	return false
 end
 
+function Map:IsDFOceanTileAtPoint(x, y, z)
+    return DF_OCEAN_TILES[self:GetTileAtPoint(x, y, z)] ~= nil
+end
+
+function Map:IsDFOceanAtPoint(x, y, z, allow_boats)
+    return self:IsDFOceanTileAtPoint(x, y, z)                             -- Location is in the ocean tile range
+        and not self:IsVisualGroundAtPoint(x, y, z)                     -- Location is NOT in the world overhang space
+        and (allow_boats or self:GetPlatformAtPoint(x, z) == nil)		-- The location either accepts boats, or is not the location of a boat
+end
+
 ---------------------------------------------------------
 
 local function _test_is_df_ocean_tile_at_point(x, y, z, map)
-    return DF_OCEAN_TILES[map:GetTileAtPoint(x, y, z)] ~= nil
+    return map:IsDFOceanTileAtPoint(x, y, z)
 end
 
 --------------------- IsCloseToTile ---------------------

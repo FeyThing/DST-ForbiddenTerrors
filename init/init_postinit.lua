@@ -25,12 +25,14 @@ local components_post = {
     "locomotor",
     "birdspawner",
     "sanity",
+    "shadowcreaturespawner",
 }
 
 local prefabs_post = {
     "oceanfish",
     "wilson",
     "world",
+    "shadowcreature",
 }
 
 local gustable_prefabs_post = {
@@ -42,6 +44,8 @@ local stategraphs_post = {
 }
 
 local brains_post = {
+    "oceanshadowcreaturebrain",
+    "shadowcreaturebrain",
 }
 
 local class_post = {
