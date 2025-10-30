@@ -1,7 +1,20 @@
 name = "Forbidden Terrors"
-description = "Journey to a distant island plagued by curse, that is ruled by shadows. A haunted land where charlie sets out to plunge the player into darkness and play a game of hide and seek. Endure harsh elements, and simply don't die."
 author = "Feything"
-version = "1.4" 
+version = "Beta 1.4" 
+local info_version = "󰀔 [ Version "..version.." ]\n"
+
+description = info_version..[[
+Journey to a distant island plagued by curse, that is ruled by shadows. A haunted land where charlie sets out to plunge the player into darkness and play a game of hide and seek.  
+
+󰀛 Explore :
+Endure harsh elements in a brand new horror theme bog biome. 
+
+󰀏 Configure the mod to your choosing in the settings!
+
+Many thanks to ADM, Half, and ClumsyPenny for the help with code! 
+Lidemo for donating some art to the cause.
+Special thanks to Ardent for a lot of the water scripts.
+]]
 
 
 forumthread = ""
