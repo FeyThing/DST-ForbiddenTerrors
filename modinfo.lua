@@ -1,7 +1,7 @@
 name = "Forbidden Terrors"
-description = "Journey to A horrible island.."
+description = "Journey to a distant island plagued by curse, that is ruled by shadows. A haunted land where charlie sets out to plunge the player into darkness and play a game of hide and seek. Endure harsh elements, and simply don't die.
 author = "Feything"
-version = "1.2" 
+version = "1.4" 
 
 
 forumthread = ""
