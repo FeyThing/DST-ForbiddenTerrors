@@ -142,3 +142,9 @@ function EntityScript:IsOnDFOcean(allow_boats)
     local x, y, z = self.Transform:GetWorldPosition()
     return TheWorld.Map:IsDFOceanAtPoint(x, y, z, allow_boats)
 end
+
+function EntityScript:IsOnDFOceanTile(allow_boats)
+    local x, y, z = self.Transform:GetWorldPosition()
+    return (allow_boats or self:GetPlatformAtPoint(x, z) == nil) and
+        TheWorld.Map:IsDFOceanTileAtPoint(x, y, z)
+end
