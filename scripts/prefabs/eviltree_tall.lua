@@ -1,5 +1,6 @@
 local valid_lantern_prefabs = {
 	lantern = true,
+	df_lantern = true,
 }
 
 local function PutLantern(inst, enable, item)
