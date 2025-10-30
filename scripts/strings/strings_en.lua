@@ -4,6 +4,7 @@ local ANNOUNCE = STRINGS.CHARACTERS.GENERIC
 local DESCRIBE = STRINGS.CHARACTERS.GENERIC.DESCRIBE
 
 STRINGS.ACTIONS.DF_HIDEIN = "Hide in"
+STRINGS.ACTIONS.DF_PANNING = "Pan"
 STRINGS.CHARACTERS.GENERIC.ACTIONFAIL.DF_HIDEIN = {
 	OCCUPIED = "Looks like someone is already hiding here.",
 }
@@ -23,11 +24,15 @@ NAMES.DF_DRIFTWOOD = "Gnarled Driftwood"
 NAMES.EVILTREE_TALL1 = "Ancient Tree"
 NAMES.EVILTREE_TALL2 = "Gnarled Tree"
 
---- Mobs
-NAMES.DF_MOSQUITO = "Bog Mosquito"
-NAMES.DF_UNASSUMING_TREE = "Unassuming Tree"
-NAMES.OCEANFISH_SMALL_DF = "Unassuming Tree"
+--- Items
+NAMES.DF_PAN = "Gold Pan"
+NAMES.DF_LANTERN = "Desolate Lantern"
 
+
+--- Mobs
+NAMES.DF_MOSQUITO = "Bogskito"
+NAMES.DF_UNASSUMING_TREE = "Unassuming Tree"
+NAMES.OCEANFISH_SMALL_DF = "Piranha"
 
 --- Other
 DESCRIBE.TURF_EVILFOREST = "It's a creepy tuft of grass"

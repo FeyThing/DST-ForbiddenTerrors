@@ -112,7 +112,10 @@ local function fn()
     if not TheWorld.ismastersim then
         return inst
     end
-
+	
+	local scale = math.random() > 0.5 and 1 or -1
+	inst.AnimState:SetScale(scale, 1)
+	
     MakeMediumBurnable(inst, TUNING.MED_BURNTIME)
     inst.components.burnable:SetOnBurntFn(OnBurnt)
     MakeSmallPropagator(inst)

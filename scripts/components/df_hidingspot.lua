@@ -26,7 +26,7 @@ function DF_HidingSpot:SetCanHide(canhide)
 	self.canhide = canhide
 	
 	if not canhide then
-		self:Unhide()
+		self:Unhide(true)
 	end
 end
 
@@ -44,6 +44,7 @@ function DF_HidingSpot:Hide(doer)
 	end
 	
 	self.occupier = doer
+	doer:PushEvent("df_onhide", {hidingspot = self.inst})
 	doer:AddTag("df_hiding")
 	doer.sg:GoToState("df_hide", self.inst)
 	
@@ -54,10 +55,15 @@ function DF_HidingSpot:Hide(doer)
 	return true
 end
 
-function DF_HidingSpot:Unhide()
+function DF_HidingSpot:Unhide(surprise)
 	if self.occupier ~= nil then
 		self.occupier:RemoveTag("df_hiding")
-		self.occupier:PushEvent("df_onunhide")
+		self.occupier:PushEvent("df_onunhide", {hidingspot = self.inst})
+		
+		if surprise and self.occupier.sg then
+			self.occupier.sg:GoToState("wakeup")
+		end
+		
 		self.occupier = nil
 		
 		if self.onunhide ~= nil then

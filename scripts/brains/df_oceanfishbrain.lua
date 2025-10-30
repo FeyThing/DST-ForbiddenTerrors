@@ -11,8 +11,8 @@ local KEEP_FACE_DIST = 8
 local GO_HOME_DIST = 1
 local MAX_CHASE_TIME = 10
 local MAX_CHASE_DIST = 20
-local RUN_AWAY_DIST = 4
-local STOP_RUN_AWAY_DIST = 8
+local RUN_AWAY_DIST = 3
+local STOP_RUN_AWAY_DIST = 6
 
 local SPLASH_AVOID_DIST = 2
 local SPLASH_AVOID_STOP = 5
@@ -28,27 +28,27 @@ local SEE_LURE_MAX_DIST = 5
 local SEE_LURE_OR_FOOD_DIST = math.max(SEE_FOOD_DIST, SEE_LURE_MAX_DIST)
 
 local FOOD_WANDER_DIST = 4
-local FOOD_WANDER_TIMES = {minwalktime=0.6, randwalktime=0.2, minwaittime=0.0, randwaittime=0.0}
+local FOOD_WANDER_TIMES = {minwalktime = 0.6, randwalktime = 0.2, minwaittime = 0.0, randwaittime = 0.0}
 local FOOD_WANDER_DATA = {wander_dist = 2}
 
 local FLEEING_DURATION = 3.5
 local FLEEING_MAX_WANDER_DIST = 50
-local FLEEING_WANDER_TIMES = {minwalktime=1, randwalktime=0.5, minwaittime=0.0, randwaittime=0.0}
+local FLEEING_WANDER_TIMES = {minwalktime = 1, randwalktime = 0.5, minwaittime = 0.0, randwaittime = 0.0}
 local FLEEING_WANDER_DATA = {should_run = true}
 
 local MAX_FISER_DIST = TUNING.OCEAN_FISHING.MAX_HOOK_DIST
 
-local STRUGGLE_WANDER_TIMES = {minwalktime=0.3, randwalktime=0.2, minwaittime=0.0, randwaittime=0.0}
+local STRUGGLE_WANDER_TIMES = {minwalktime = 0.3, randwalktime = 0.2, minwaittime = 0.0, randwaittime = 0.0}
 local STRUGGLE_WANDER_DATA = {wander_dist = 6, should_run = true}
 
-local TIREDOUT_WANDER_TIMES = {minwalktime=0.5, randwalktime=0.5, minwaittime=0.0, randwaittime=0.0}
+local TIREDOUT_WANDER_TIMES = {minwalktime = 0.5, randwalktime = 0.5, minwaittime = 0.0, randwaittime = 0.0}
 local TIREDOUT_WANDER_DATA = {wander_dist = 2.5, should_run = false}
 local TIREDOUT_WANDER_DATA_FAST_MOVING = {wander_dist = 4, should_run = false}
 local function GetTiredoutWanderData(inst)
 	return (inst.fish_def ~= nil and inst.fish_def.walkspeed ~= nil and inst.fish_def.walkspeed >= 2) and TIREDOUT_WANDER_DATA_FAST_MOVING or TIREDOUT_WANDER_DATA
 end
 
-local WANDER_TIMES = {minwalktime=0.25, randwalktime=0.5, minwaittime=0.0, randwaittime=0.0}
+local WANDER_TIMES = {minwalktime = 0.25, randwalktime = 0.5, minwaittime = 0.0, randwaittime = 0.0}
 local function getWanderDist(inst)
 	return (inst.components.herdmember ~= nil and inst.components.herdmember.enabled) and 2 
 			or inst.fish_def ~= nil and inst.fish_def.herdless_wander_dist
@@ -110,7 +110,7 @@ local function FindFoodAction(inst)
 									and food.components.oceantrawler:IsLowered()
 									and food.components.oceantrawler:GetBait(inst.prefab) ~= nil
 							end
-							return inst:IsNear(food, SEE_FOOD_DIST) and TheWorld.Map:IsOceanAtPoint(food.Transform:GetWorldPosition())
+							return inst:IsHungryFish() and inst:IsNear(food, SEE_FOOD_DIST) and TheWorld.Map:IsOceanAtPoint(food.Transform:GetWorldPosition())
 						end,
 						nil,
 						FINDFOOD_CANT_TAGS,
@@ -179,61 +179,72 @@ local function getfleedirectionFn(inst)
 end
 
 local Df_OceanFishBrain = Class(Brain, function(self, inst)
-    Brain._ctor(self, inst)
+	Brain._ctor(self, inst)
 end)
 
 local function GoHomeAction(inst)
-    if inst.components.combat.target ~= nil then
-        return
-    end
-    local homePos = inst.components.knownlocations:GetLocation("home")
-    return homePos ~= nil
-        and BufferedAction(inst, nil, ACTIONS.WALKTO, nil, homePos, nil, .2)
-        or nil
+	if inst.components.combat.target ~= nil then
+		return
+	end
+	local homePos = inst.components.knownlocations:GetLocation("home")
+	return homePos ~= nil
+		and BufferedAction(inst, nil, ACTIONS.WALKTO, nil, homePos, nil, .2)
+		or nil
 end
 
 local function GetFaceTargetFn(inst)
-    local target = FindClosestPlayerToInst(inst, START_FACE_DIST, true)
-    return target ~= nil and not target:HasTag("notarget") and target or nil
+	local target = FindClosestPlayerToInst(inst, START_FACE_DIST, true)
+	return target ~= nil and not target:HasTag("notarget") and target or nil
 end
 
 local function KeepFaceTargetFn(inst, target)
-    return not target:HasTag("notarget") and inst:IsNear(target, KEEP_FACE_DIST)
+	return not target:HasTag("notarget") and inst:IsNear(target, KEEP_FACE_DIST)
 end
 
 local function ShouldGoHome(inst)
-    if inst.components.follower ~= nil and inst.components.follower.leader ~= nil then
-        return false
-    end
-    local homePos = inst.components.knownlocations:GetLocation("home")
-    return homePos ~= nil and inst:GetDistanceSqToPoint(homePos:Get()) > GO_HOME_DIST * GO_HOME_DIST
+	if inst.components.follower ~= nil and inst.components.follower.leader ~= nil then
+		return false
+	end
+	local homePos = inst.components.knownlocations:GetLocation("home")
+	return homePos ~= nil and inst:GetDistanceSqToPoint(homePos:Get()) > GO_HOME_DIST * GO_HOME_DIST
 end
 
 local function ShouldRunAway(inst, target)
-    local x, y, z = target.Transform:GetWorldPosition()
-    return TheWorld.Map:IsVisualGroundAtPoint(x, y, z )
+	return TheWorld.Map:IsPassableAtPoint(target.Transform:GetWorldPosition())
 end
 
 function Df_OceanFishBrain:OnStart()
-    local root = PriorityNode(
-    {
-		WhileNode(function()
-                        return self.inst.components.combat.target == nil
-                            or not self.inst.components.combat:InCooldown()
-                    end,
-                    "AttackMomentarily",
-                    ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST)),
-        WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() end, "Dodge",
-            RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST)),
-        WhileNode(function() return ShouldGoHome(self.inst) end, "ShouldGoHome",
-            DoAction(self.inst, GoHomeAction, "Go Home", true)),
-
-        Follow(self.inst, function() return self.inst.components.follower ~= nil and self.inst.components.follower.leader or nil end,
-            5, 7, 12),
-
-        FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn),
-        WhileNode(function() return not self.inst.sg:HasStateTag("jumping") end, "<jump guard>",
-            PriorityNode({
+	local root = PriorityNode({
+		NotDecorator(ActionNode(function() FindFoodAction(self.inst) end)),
+			WhileNode(function() return GetFoodTarget(self.inst) ~= nil end, "FeedingTime",
+				LoopNode{
+					ParallelNodeAny{
+						WaitNode(function() return 1 + math.random() * 1 end),
+						Wander(self.inst, GetFoodTargetPos, FOOD_WANDER_DIST, FOOD_WANDER_TIMES, nil, nil, nil, FOOD_WANDER_DATA),
+					},
+					DoAction(self.inst, NibbleFoodAction),
+					ConditionWaitNode(function() return self.inst:GetBufferedAction() == nil end),
+				}
+			),
+			FindClosest(self.inst, TUNING.OCEANFISH_SEE_CHUM_DIST, 0, {"chum"}),
+		
+		WhileNode(function() return self.inst.components.combat.target == nil or not self.inst.components.combat:InCooldown() end, "AttackMomentarily",
+			ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST)),
+		WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() end, "Dodge",
+			RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST)),
+			
+		RunAway(self.inst, "player", RUN_AWAY_DIST, STOP_RUN_AWAY_DIST, function(target)
+			return ShouldRunAway(self.inst, target)
+		end, false, nil, true),
+		
+		--WhileNode(function() return ShouldGoHome(self.inst) end, "ShouldGoHome",
+		--	DoAction(self.inst, GoHomeAction, "Go Home", false)),
+		FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn),
+		--Follow(self.inst, function() return self.inst.components.follower ~= nil and self.inst.components.follower.leader or nil end,
+		--	5, 7, 12),
+		
+		WhileNode(function() return not self.inst.sg:HasStateTag("jumping") end, "<jump guard>",
+			PriorityNode({
 				WhileNode(function() return self.inst.leaving end, "leaving",
 					ParallelNode{
 						LoopNode{
@@ -246,7 +257,7 @@ function Df_OceanFishBrain:OnStart()
 
 				WhileNode(function() return self.inst.components.oceanfishable ~= nil and self.inst.components.oceanfishable:GetRod() ~= nil end, "Hooked",
 					PriorityNode({
-				        WhileNode(function() return self.inst:HasTag("partiallyhooked") end, "partiallyhooked",
+						WhileNode(function() return self.inst:HasTag("partiallyhooked") end, "partiallyhooked",
 							StandStill(self.inst)),
 						PriorityNode({
 							WhileNode(function() self.inst.components.oceanfishable:UpdateStruggleState() return self.inst.components.oceanfishable:IsStruggling() end, "struggle",
@@ -255,33 +266,16 @@ function Df_OceanFishBrain:OnStart()
 						}),
 					})
 				),
-
-				RunAway(self.inst, "character", RUN_AWAY_DIST, STOP_RUN_AWAY_DIST, function(target)
-    				return ShouldRunAway(self.inst, target)
-				end, false, nil, true),
-
-				NotDecorator(ActionNode(function() FindFoodAction(self.inst) end)),
-				WhileNode(function() return GetFoodTarget(self.inst) ~= nil end, "FeedingTime",
-					LoopNode{
-						ParallelNodeAny{
-							WaitNode(function() return 1 + math.random() * 1 end),
-							Wander(self.inst, GetFoodTargetPos, FOOD_WANDER_DIST, FOOD_WANDER_TIMES, nil, nil, nil, FOOD_WANDER_DATA),
-						},
-						DoAction(self.inst, NibbleFoodAction),
-						ConditionWaitNode(function() return self.inst:GetBufferedAction() == nil end),
-					}
-				),
-
-				FindClosest(self.inst, TUNING.OCEANFISH_SEE_CHUM_DIST, 0, { "chum" }),
+				
 				Wander(self.inst, WanderTarget, getWanderDist(self.inst), WANDER_TIMES, getdirectionFn, nil, nil, getWanderData(self.inst))
-            }, 0.25)),
-    }, 0.25)
+			}, 0.25)),
+	}, 0.25)
 
-    self.bt = BT(self.inst, root)
+	self.bt = BT(self.inst, root)
 end
 
 function Df_OceanFishBrain:OnInitializationComplete()
-    self.inst.components.knownlocations:RememberLocation("home", self.inst:GetPosition(), true)
+	self.inst.components.knownlocations:RememberLocation("home", self.inst:GetPosition(), true)
 end
 
 return Df_OceanFishBrain

@@ -1,0 +1,6 @@
+14:14:12 ..\..\src\propertyeditor.cpp:4234 ER: Set x 3D Auto Distance Filtering
+14:14:20 ..\..\src\propertyeditor.cpp:4234 ER: Set x 3D Auto Distance Filtering
+15:11:32 c:\anthill_jobs\job504524\fmod4\tools\fmod_designer\src\eventform.ui.h:1529 HH: Add Simple Event
+15:11:44 ..\..\src\simpleeventcontroller.cpp:1734 IS: Add Sound to Playlist
+15:11:56 ..\..\src\propertyeditor.cpp:4234 ER: Set Mode
+15:12:07 ..\..\src\propertyeditor.cpp:4234 ER: Set x 3D Auto Distance Filtering

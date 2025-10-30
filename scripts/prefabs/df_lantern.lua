@@ -212,7 +212,7 @@ local function lanternlightfn()
 
     inst:AddTag("FX")
 
-    inst.Light:SetColour(180 / 255, 195 / 255, 150 / 255)
+    inst.Light:SetColour(255 / 255, 20 / 255, 30 / 255)
 
     inst.entity:SetPristine()
 
@@ -271,8 +271,8 @@ local function fn()
     machine.turnofffn = turnoff
     machine.cooldowntime = 0
 
-    fueled.fueltype = FUELTYPE.CAVE
-    fueled:InitializeFuelLevel(TUNING.LANTERN_LIGHTTIME)
+    fueled.fueltype = FUELTYPE.NIGHTMARE
+    fueled:InitializeFuelLevel(TUNING.DF_LANTERN_LIGHTTIME)
     fueled:SetDepletedFn(nofuel)
     fueled:SetUpdateFn(fuelupdate)
     fueled:SetTakeFuelFn(ontakefuel)

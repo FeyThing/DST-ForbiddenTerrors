@@ -34,7 +34,8 @@ local function fn()
 	inst.AnimState:PlayAnimation("idle")
 	
 	inst:AddTag("worksOnFloor")
-
+	inst:AddTag("allow_action_on_impassable")
+	
 	MakeInventoryFloatable(inst, "small", 0.1, 0.88)
 
 	inst.entity:SetPristine()
@@ -53,6 +54,8 @@ local function fn()
 	-------
 	inst:AddComponent("finiteuses")
 
+	inst:AddComponent("df_pan")
+	
 	--[[local uses = TUNING.PAN_USES
     local player = GetPlayer()
     if player and player:HasTag("treasure_hunter") then

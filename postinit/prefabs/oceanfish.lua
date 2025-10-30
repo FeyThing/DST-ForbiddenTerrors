@@ -6,14 +6,12 @@ local FISH_DATA = require("prefabs/oceanfishdef")
 local brain = require "brains/df_oceanfishbrain"
 
 
-local prefabs =
-{
-    "fishmeat_small",
+local prefabs = {
+	"fishmeat_small",
 }
 
-SetSharedLootTable('oceanfish_small_df',
-{
-    {'fishmeat_small',  1},
+SetSharedLootTable('oceanfish_small_df', {
+	{'fishmeat_small',  1},
 })
 
 local DIET = {OMNI = {caneat = {FOODGROUP.OMNI}}}
@@ -106,26 +104,37 @@ local RETARGET_ONEOF_TAGS = { "character", "monster" }
 local range = TUNING.DF_OCEANFISH_TARGET_DIST
 
 local function Retarget(inst)
-    return FindEntity(inst, range, function(guy)
-        return inst.components.combat:CanTarget(guy) and not TheWorld.Map:IsVisualGroundAtPoint(guy.Transform:GetWorldPosition())
-    end, RETARGET_MUST_TAGS, RETARGET_CANT_TAGS, RETARGET_ONEOF_TAGS)
+	if not inst:IsHungryFish() then
+		return
+	end
+	
+	return FindEntity(inst, range, function(guy)
+		return inst.components.combat:CanTarget(guy) and not TheWorld.Map:IsPassableAtPoint(guy.Transform:GetWorldPosition())
+	end, RETARGET_MUST_TAGS, RETARGET_CANT_TAGS, RETARGET_ONEOF_TAGS)
 end
 
 local function KeepTarget(inst, target)
-    return not TheWorld.Map:IsVisualGroundAtPoint(target.Transform:GetWorldPosition())
+	return not TheWorld.Map:IsPassableAtPoint(target.Transform:GetWorldPosition())
 end
 
 local function _ShareTargetFn(dude)
-    return dude:HasTag("piranha")
+	return dude:HasTag("piranha")
 end
 
 local function OnAttacked(inst, data)
-    local attacker = data ~= nil and data.attacker or nil
-    if attacker ~= nil and attacker:HasTag("piranha") then
-        return
-    end
-    inst.components.combat:SetTarget(attacker)
-    inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, _ShareTargetFn, MAX_TARGET_SHARES)
+	local attacker = data ~= nil and data.attacker or nil
+	if attacker and (attacker:HasTag("piranha") or TheWorld.Map:IsPassableAtPoint(attacker.Transform:GetWorldPosition())) then
+		return
+	end
+	
+	inst.components.combat:SetTarget(attacker)
+	inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, _ShareTargetFn, MAX_TARGET_SHARES)
+end
+
+local function IsHungryFish(inst)
+	local lasteattime = inst.components.eater and inst.components.eater.lasteattime
+	
+	return lasteattime == nil or (GetTime() - lasteattime  > 5)
 end
 
 ENV.AddPrefabPostInit("oceanfish_small_df", function(inst)
@@ -138,23 +147,24 @@ ENV.AddPrefabPostInit("oceanfish_small_df", function(inst)
 	end
 
 	local combat = inst:AddComponent("combat")
-    combat.hiteffectsymbol = "smol_bod_water"
+	combat.hiteffectsymbol = "smol_bod_water"
 	combat:SetRange(TUNING.PIRANHA_ATTACK_RANGE)
-    combat:SetAttackPeriod(TUNING.PIRANHA_ATTACK_PERIOD)
-    combat:SetDefaultDamage(TUNING.PIRANHA_DAMAGE)
-    combat:SetRetargetFunction(3, Retarget)
-    combat:SetKeepTargetFunction(KeepTarget)
+	combat:SetAttackPeriod(TUNING.PIRANHA_ATTACK_PERIOD)
+	combat:SetDefaultDamage(TUNING.PIRANHA_DAMAGE)
+	combat:SetRetargetFunction(1, Retarget)
+	combat:SetKeepTargetFunction(KeepTarget)
 
 	local health = inst:AddComponent("health")
-    health:SetMaxHealth(TUNING.PIRANHA_HEALTH)
+	health:SetMaxHealth(TUNING.PIRANHA_HEALTH)
 
-    --
-    inst:AddComponent("inspectable")
+	--
+	inst:AddComponent("inspectable")
 
 	inst:AddComponent("lootdropper")
 	inst.components.lootdropper:SetChanceLootTable('oceanfish_small_df')
-
-    inst:SetBrain(brain)
+	
+	inst.IsHungryFish = IsHungryFish
+	inst:SetBrain(brain)
 
 	inst:ListenForEvent("attacked", OnAttacked)
 end)
