@@ -24,6 +24,11 @@ NAMES.DF_DRIFTWOOD = "Gnarled Driftwood"
 NAMES.EVILTREE_TALL1 = "Ancient Tree"
 NAMES.EVILTREE_TALL2 = "Gnarled Tree"
 
+--- Items
+NAMES.DF_PAN = "Gold Pan"
+NAMES.DF_LANTERN = "Desolate Lantern"
+
+
 --- Mobs
 NAMES.DF_MOSQUITO = "Bogskito"
 NAMES.DF_UNASSUMING_TREE = "Unassuming Tree"

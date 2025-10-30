@@ -1,6 +1,6 @@
 AddRoom("BG EvilForest", {
 	colour = {r = 0.3, g = 0.2, b = 0.1, a = 0.3},
-	tags = {"DF_Forest", "DF_Rivers"},
+	tags = {"DF_Forest", "DF_Rivers", "nohunt"},
 	value = WORLD_TILES.EVILMUDDY_NOISE,
 	contents = {
 		distributepercent = 0.07,
@@ -70,7 +70,7 @@ AddRoom("EvilForest Graveyard", {
 
 AddRoom("EvilForest Ponds", {
 	colour = {r = 0.3, g = 0.2, b = 0.1, a = 0.3},
-	tags = {"DF_Forest", "DF_Rivers"},
+	tags = {"DF_Forest", "DF_Rivers", "nohunt"},
 	value = WORLD_TILES.FOREST,
 	contents = {
 		countstaticlayouts = {
@@ -97,7 +97,7 @@ AddRoom("EvilForest Ponds", {
 
 AddRoom("EvilForest Outland", {
 	colour = {r = 0.3, g = 0.2, b = 0.1, a = 0.3},
-	tags = {"DF_Forest", "DF_Rivers"},
+	tags = {"DF_Forest", "DF_Rivers", "nohunt"},
 	value = WORLD_TILES.EVILFOREST_NOISE,
 	contents = {
 		countstaticlayouts = {
@@ -118,7 +118,7 @@ AddRoom("EvilForest Outland", {
 
 AddRoom("EvilForest Bog", {
 	colour = {r = 0.3, g = 0.2, b = 0.1, a = 0.3},
-	tags = {"DF_Forest", "DF_Rivers"},
+	tags = {"DF_Forest", "DF_Rivers", "nohunt"},
 	value = WORLD_TILES.EVILFOREST_WATER_CONVERT,
 	contents = {
 		distributepercent = 0.1,

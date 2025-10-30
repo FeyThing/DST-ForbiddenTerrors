@@ -55,6 +55,9 @@ local DF_TUNING = {
 		WIDENESS_MIN = 1,
 		WIDENESS_MAX = 3,
 	},
+
+    DF_LANTERN_LIGHTTIME =  (night_time+dusk_time)*3,
+
     DF_MOSQUITO_HEALTH = 600,
     DF_MOSQUITO_DAMAGE = 20,
     DF_MOSQUITO_ATTACK_RANGE = 5,
