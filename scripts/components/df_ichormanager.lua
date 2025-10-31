@@ -192,7 +192,11 @@ function DF_IchorManager:OnUpdate(dt)
         end
     end
 
-    if rate ~= 0 then
+    if TheWorld.state.isnight and TheWorld.state.isnewmoon then
+        rate = rate + TUNING.DF_ICHOR_MOON_RATE
+    end
+
+    if rate ~= 0 or TheWorld.state.isnewmoon then
         self:DoDelta(rate)
     end
 end
