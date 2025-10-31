@@ -4,7 +4,7 @@ local valid_lantern_prefabs = {
 }
 
 local function PutLantern(inst, enable, item)
-	inst.AnimState:ClearOverrideSymbol("lantern")
+	inst.AnimState:ClearOverrideSymbol("swap_object")
 	inst.AnimState:ClearOverrideSymbol("lantern_overlay")
 	
 	inst.components.workable:SetWorkLeft(4)
@@ -14,7 +14,7 @@ local function PutLantern(inst, enable, item)
 		inst.components.trader:Disable()
 		
 		inst.AnimState:Show("rope")
-		inst.AnimState:Show("lantern")
+		inst.AnimState:Show("swap_object")
 		inst.AnimState:Show("lantern_overlay")
 		
 		if item and item:IsValid() then
@@ -24,7 +24,7 @@ local function PutLantern(inst, enable, item)
 		inst.components.trader:Enable()
 		
 		inst.AnimState:Hide("rope")
-		inst.AnimState:Hide("lantern")
+		inst.AnimState:Hide("swap_object")
 		inst.AnimState:Hide("lantern_overlay")
 		
 		inst.components.inventory:DropEverything()
@@ -139,7 +139,7 @@ local function MakeTree(name, has_branch)
 		inst.AnimState:SetBuild(has_branch and "eviltree_tall" or "eviltree_tall_empty")
 		inst.AnimState:PlayAnimation("idle", true)
 		inst.AnimState:Hide("rope")
-		inst.AnimState:Hide("lantern")
+		inst.AnimState:Hide("swap_object")
 		inst.AnimState:Hide("lantern_overlay")
 		
 		inst:AddTag("antlion_sinkhole_blocker")
