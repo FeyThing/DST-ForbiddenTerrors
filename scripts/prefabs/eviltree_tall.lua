@@ -195,6 +195,8 @@ local function MakeTree(name, has_branch)
 		inst.components.playerprox:SetOnPlayerNear(OnNear)
 		
 		inst:AddComponent("timer")
+
+		inst:AddComponent("inspectable")
 		
 		if has_branch then
 			inst:AddComponent("trader")
