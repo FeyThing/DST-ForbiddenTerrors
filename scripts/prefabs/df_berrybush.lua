@@ -267,6 +267,12 @@ local function fn()
 		inst.components.pickable.max_cycles = TUNING.BERRYBUSH_CYCLES + math.random(2)
 		inst.components.pickable.cycles_left = inst.components.pickable.max_cycles
 
+		if not GetGameModeProperty("disable_transplanting") then
+			inst:AddComponent("workable")
+			inst.components.workable:SetWorkAction(ACTIONS.DIG)
+			inst.components.workable:SetWorkLeft(1)
+		end
+		
 		if inst.components.workable then
 		inst.components.workable:SetOnFinishCallback(dig_up_normal)
 		end
@@ -280,12 +286,6 @@ local function fn()
 		AddHauntableCustomReaction(inst, OnHaunt, false, false, true)
 
 		inst:AddComponent("lootdropper")
-
-		if not GetGameModeProperty("disable_transplanting") then
-			inst:AddComponent("workable")
-			inst.components.workable:SetWorkAction(ACTIONS.DIG)
-			inst.components.workable:SetWorkLeft(1)
-		end
 		
 		inst:AddComponent("df_hidingspot")
 		inst.components.df_hidingspot:SetCanHide(true)
