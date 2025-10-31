@@ -155,7 +155,7 @@ local DF_TUNING = {
 
     DF_LANTERN_ICHOR_AURA = -1,
 
-    DF_POISON_IVY_DAMAGE = 20,
+    DF_POISON_IVY_DAMAGE = 2,
 }
 
 
