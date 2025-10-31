@@ -18,21 +18,7 @@ local function PutLantern(inst, enable, item)
 		inst.AnimState:Show("lantern_overlay")
 		
 		if item and item:IsValid() then
-			local skin_build = item:GetSkinBuild()
-			
-			if skin_build then
-				inst.AnimState:OverrideItemSkinSymbol("lantern", skin_build, "swap_lantern", item.GUID, "lantern")
-				inst.AnimState:OverrideItemSkinSymbol("lantern_overlay", skin_build, "lantern_overlay", item.GUID, "lantern")
-			end
-			if inst._light == nil then
-				inst._light = SpawnPrefab("lanternlight")
-				inst._light._lantern = inst
-			end
-			
-			inst._light.entity:SetParent(inst.entity)
-			inst._light.Light:SetIntensity(Lerp(.4, .6, 1))
-			inst._light.Light:SetRadius(Lerp(3, 5, 1))
-			inst._light.Light:SetFalloff(.9)
+			inst.components.inventory:Equip(item)
 		end
 	else
 		inst.components.trader:Enable()
@@ -41,12 +27,7 @@ local function PutLantern(inst, enable, item)
 		inst.AnimState:Hide("lantern")
 		inst.AnimState:Hide("lantern_overlay")
 		
-		if inst._light then
-			inst._light:Remove()
-			inst._light = nil
-		end
-		
-		inst.components.inventory:DropEverything(true)
+		inst.components.inventory:DropEverything()
 	end
 end
 

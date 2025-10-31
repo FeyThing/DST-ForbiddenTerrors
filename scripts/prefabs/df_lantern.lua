@@ -33,9 +33,7 @@ end
 local function fuelupdate(inst)
     if inst._light ~= nil then
         local fuelpercent = inst.components.fueled:GetPercent()
-        inst._light.Light:SetIntensity(Lerp(.4, .6, fuelpercent))
-        inst._light.Light:SetRadius(Lerp(3, 5, fuelpercent))
-        inst._light.Light:SetFalloff(.9)
+        inst._light:SetPercent(fuelpercent)
     end
 end
 
@@ -123,8 +121,8 @@ local function ondropped(inst)
 end
 
 local function onequip(inst, owner)
-        owner.AnimState:OverrideSymbol("swap_object", "df_lantern", "swap_lantern")
-        owner.AnimState:OverrideSymbol("lantern_overlay", "swap_lantern", "lantern_overlay")
+    owner.AnimState:OverrideSymbol("swap_object", "df_lantern", "swap_lantern")
+    owner.AnimState:OverrideSymbol("lantern_overlay", "swap_lantern", "lantern_overlay")
 
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
@@ -181,13 +179,6 @@ local function ontakefuel(inst)
     end
 end
 
-local function GetIchorAura(inst, observer)
-    if inst.components.machine.ison then
-        return TUNING.DF_LANTERN_ICHOR_AURA
-    end
-    return 0
-end
-
 --------------------------------------------------------------------------
 
 local function OnLightWake(inst)
@@ -198,6 +189,26 @@ end
 
 local function OnLightSleep(inst)
     inst.SoundEmitter:KillSound("loop")
+end
+
+local function GetIchorAura(inst, observer)
+    return TUNING.DF_LANTERN_ICHOR_AURA
+end
+
+local function GetIchorFalloff(inst, observer, maxdist)
+    return 1
+end
+
+local function SetPercent(inst, percent)
+    local intensity = Lerp(.4, .6, percent)
+    local radius = Lerp(3, 5, percent)
+
+    inst.Light:SetIntensity(intensity)
+    inst.Light:SetRadius(radius)
+    inst.Light:SetFalloff(.9)
+
+    inst.components.df_ichoraura.max_distsq = radius*radius*2
+    inst._radius = radius
 end
 
 --------------------------------------------------------------------------
@@ -219,6 +230,14 @@ local function lanternlightfn()
     if not TheWorld.ismastersim then
         return inst
     end
+
+    inst._radius = 5
+    inst.SetPercent = SetPercent
+
+    -- NOTE (HALF): Moving the aura to the light since it makes it easier to handle when equipped by something else
+    inst:AddComponent("df_ichoraura")
+    inst.components.df_ichoraura.aurafn = GetIchorAura
+    inst.components.df_ichoraura.fallofffn = GetIchorFalloff
 
     inst.persists = false
 
@@ -254,9 +273,6 @@ local function fn()
     end
 
     inst:AddComponent("inspectable")
-
-    inst:AddComponent("df_ichoraura")
-    inst.components.df_ichoraura.aurafn = GetIchorAura
 
     local inventoryitem = inst:AddComponent("inventoryitem")
     inventoryitem:SetOnDroppedFn(ondropped)

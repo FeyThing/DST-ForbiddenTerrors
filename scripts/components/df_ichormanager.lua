@@ -178,6 +178,7 @@ end
 
 
 local DF_ICHOR_MUST_TAGS = { "df_ichoraura" }
+local DF_ICHOR_CANT_TAGS = { "INLIMBO" }
 function DF_IchorManager:OnUpdate(dt)
     local rate = self.rate
     if self.seeker ~= nil or not self.inst.indarkforest then
@@ -185,7 +186,7 @@ function DF_IchorManager:OnUpdate(dt)
     end
 
     local x, y, z = self.inst.Transform:GetWorldPosition()
-    local ents = TheSim:FindEntities(x, y, z, TUNING.DF_ICHOR_AURA_SEACH_RANGE, DF_ICHOR_MUST_TAGS)
+    local ents = TheSim:FindEntities(x, y, z, TUNING.DF_ICHOR_AURA_SEACH_RANGE, DF_ICHOR_MUST_TAGS, DF_ICHOR_CANT_TAGS)
     for i, v in ipairs(ents) do
         if v.components.df_ichoraura ~= nil and v ~= self.inst then
             rate = rate + v.components.df_ichoraura:GetAura(self.inst)
