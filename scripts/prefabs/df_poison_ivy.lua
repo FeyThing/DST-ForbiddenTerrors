@@ -14,7 +14,7 @@ local df_grasspart_assets =
 local prefabs =
 {
     "cutgrass",
-    "dug_grass",
+    "dug_df_poison_ivy",
     "spoiled_food",
 }
 
@@ -26,7 +26,7 @@ local function dig_up(inst, worker)
             inst.components.lootdropper:SpawnLootPrefab(inst.components.pickable.product)
         end
 
-        inst.components.lootdropper:SpawnLootPrefab(withered and "cut_grass" or "dug_grass")
+        inst.components.lootdropper:SpawnLootPrefab(withered and "cut_grass" or "dug_df_poison_ivy")
     end
     inst:Remove()
 end

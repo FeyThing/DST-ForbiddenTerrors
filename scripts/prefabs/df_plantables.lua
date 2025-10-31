@@ -96,6 +96,8 @@ local defs = {
     },
     df_berrybush = {
     },
+    df_poison_ivy = {
+    },
 }
 
 local prefs = {}
