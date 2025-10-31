@@ -73,7 +73,15 @@ local function onpickedfn(inst, picker)
     end
 end
 
-
+local function Shake(inst, ent)
+    if inst.AnimState:IsCurrentAnimation("idle") then
+        inst.AnimState:PlayAnimation("rustle")
+        inst.AnimState:PushAnimation("idle", true)
+    end
+    if ent.components.combat ~= nil then
+        ent.components.combat:GetAttacked(inst, TUNING.DF_POISON_IVY_DAMAGE)
+    end
+end
 
 local function ontransplantfn(inst)
     inst.components.pickable:MakeBarren()
@@ -140,6 +148,10 @@ local function df_grass(name, stage)
         inst.components.pickable.max_cycles = TUNING.GRASS_CYCLES
         inst.components.pickable.cycles_left = TUNING.GRASS_CYCLES
         inst.components.pickable.ontransplantfn = ontransplantfn
+
+        inst:AddComponent("df_creatureprox")
+	    inst.components.df_creatureprox:SetOnCreatureNear(Shake)
+	    inst.components.df_creatureprox:SetDist(0.25, 1)
 
         inst:AddComponent("witherable")
 

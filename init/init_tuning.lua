@@ -154,6 +154,8 @@ local DF_TUNING = {
     DF_ICHOR_MOON_RATE = 0.10,
 
     DF_LANTERN_ICHOR_AURA = -1,
+
+    DF_POISON_IVY_DAMAGE = 20,
 }
 
 

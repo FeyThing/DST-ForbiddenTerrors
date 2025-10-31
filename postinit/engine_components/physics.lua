@@ -10,6 +10,19 @@ local _block_mask = setmetatable({}, {__mode = "k"})
 local _teleport_callbacks = setmetatable({}, {__mode = "k"})
 --
 
+--Creatureprox physic entities should NOT proc the callback of the thing it's colliding with!
+local _OnPhysicsCollision = OnPhysicsCollision
+function OnPhysicsCollision(guid1, guid2, world_position_on_a_x, world_position_on_a_y, world_position_on_a_z, world_position_on_b_x, world_position_on_b_y, world_position_on_b_z, world_normal_on_b_x, world_normal_on_b_y, world_normal_on_b_z, lifetime_in_frames, ...)
+    local i1, i2 = Ents[guid1], Ents[guid2]
+
+    local _guid1Callback, _guid2Callback = PhysicsCollisionCallbacks[guid1], PhysicsCollisionCallbacks[guid2]
+    PhysicsCollisionCallbacks[guid1] = (i2 and (not i2._creature_prox_collider and PhysicsCollisionCallbacks[guid1])) or nil
+    PhysicsCollisionCallbacks[guid2] = (i1 and (not i1._creature_prox_collider and PhysicsCollisionCallbacks[guid2])) or nil
+    _OnPhysicsCollision(guid1, guid2, world_position_on_a_x, world_position_on_a_y, world_position_on_a_z, world_position_on_b_x, world_position_on_b_y, world_position_on_b_z, world_normal_on_b_x, world_normal_on_b_y, world_normal_on_b_z, lifetime_in_frames, ...)
+    PhysicsCollisionCallbacks[guid1] = _guid1Callback
+    PhysicsCollisionCallbacks[guid2] = _guid2Callback
+end
+
 function GetPhysicsCollisionCallback(inst)
     return PhysicsCollisionCallbacks[inst.GUID]
 end

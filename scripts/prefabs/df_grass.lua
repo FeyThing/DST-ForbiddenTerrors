@@ -86,15 +86,15 @@ local function onpickedfn(inst, picker)
 	end
 end
 
-local function OnUsedAsHidingSpot(inst, doer)
-	local pickable = inst.components.pickable
-	local witherable = inst.components.witherable
-	
-	inst:DoTaskInTime(0, function()
-		if not pickable:IsBarren() and pickable:CanBePicked() and not witherable:IsWithered() then
-			inst.AnimState:PlayAnimation("rustle")
-		end
-	end)
+local function Shake(inst)
+    if inst.AnimState:IsCurrentAnimation("idle") then
+        inst.AnimState:PlayAnimation("rustle")
+        inst.AnimState:PushAnimation("idle", true)
+    end
+end
+
+local function OnUsedAsHidingSpot(inst, doer)	
+	inst:DoTaskInTime(0, Shake)
 end
 
 local function ontransplantfn(inst)
@@ -167,6 +167,10 @@ local function df_grass(name, stage)
 		inst.components.pickable.ontransplantfn = ontransplantfn
 
 		inst:AddComponent("witherable")
+
+        inst:AddComponent("df_creatureprox")
+	    inst.components.df_creatureprox:SetOnCreatureNear(Shake)
+	    inst.components.df_creatureprox:SetDist(0.25, 1)
 		
 		inst:AddComponent("df_hidingspot")
 		inst.components.df_hidingspot:SetCanHide(true)
