@@ -28,7 +28,7 @@ local DF_HIDEIN = ENV.AddAction("DF_HIDEIN", STRINGS.ACTIONS.DF_HIDEIN, function
 		end
 	end
 end)
-DF_HIDEIN.priority = 2
+DF_HIDEIN.priority = -1
 
 local DF_PANNING = ENV.AddAction("DF_PANNING", STRINGS.ACTIONS.DF_PANNING, function(act)
 	if act.invobject and act.invobject.components.df_pan then
