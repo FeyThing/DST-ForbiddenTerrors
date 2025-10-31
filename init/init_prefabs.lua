@@ -20,4 +20,5 @@ PrefabFiles = {
 	"df_unassuming_tree",
     "df_oceanshadowcreature",
     "df_plantables",
+    "df_creatureprox_collider",
 }
