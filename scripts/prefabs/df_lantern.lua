@@ -2,7 +2,7 @@ local assets =
 {
     Asset("ANIM", "anim/df_lantern.zip"),
     Asset("SOUND", "sound/wilson.fsb"),
-    Asset("INV_IMAGE", "lantern_lit"),
+    Asset("INV_IMAGE", "df_lantern_lit"),
 }
 
 local prefabs =
@@ -80,7 +80,7 @@ local function turnon(inst)
         end
 
         inst.components.machine.ison = true
-        inst.components.inventoryitem:ChangeImageName((inst:GetSkinName() or "lantern").."_lit")
+        inst.components.inventoryitem:ChangeImageName("df_lantern_lit")
         inst:PushEvent("lantern_on")
     end
 end
@@ -102,7 +102,7 @@ local function turnoff(inst)
     end
 
     inst.components.machine.ison = false
-    inst.components.inventoryitem:ChangeImageName(inst:GetSkinName()) --nil if no skin
+    inst.components.inventoryitem:ChangeImageName("df_lantern") --nil if no skin
     inst:PushEvent("lantern_off")
 end
 
