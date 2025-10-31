@@ -156,7 +156,7 @@ local function mosquito()
 	inst.AnimState:SetBank("df_mosquito")
 	inst.AnimState:SetBuild("df_mosquito")
 	inst.AnimState:PlayAnimation("idle")
-	inst.AnimState:SetRayTestOnBB(true)
+
 	
 	inst.entity:SetPristine()
 	
@@ -190,8 +190,8 @@ local function mosquito()
 	
 	------------------
 	
-	MakeLargeBurnableCharacter(inst, "body", Vector3(0, -1, 1))
-	MakeLargeFreezableCharacter(inst, "body", Vector3(0, -1, 1))
+	MakeLargeBurnableCharacter(inst, "body_1", Vector3(0, -1, 1))
+	MakeLargeFreezableCharacter(inst, "body_1", Vector3(0, -1, 1))
 	
 	------------------
 	
@@ -206,7 +206,7 @@ local function mosquito()
 	------------------
 	
 	inst:AddComponent("combat")
-	inst.components.combat.hiteffectsymbol = "body"
+	inst.components.combat.hiteffectsymbol = "body_1"
 	inst.components.combat:SetDefaultDamage(TUNING.DF_MOSQUITO_DAMAGE)
 	inst.components.combat:SetRange(4, TUNING.DF_MOSQUITO_ATTACK_RANGE)
 	inst.components.combat:SetAttackPeriod(TUNING.DF_MOSQUITO_ATTACK_PERIOD)
