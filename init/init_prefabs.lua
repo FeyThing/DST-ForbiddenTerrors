@@ -19,4 +19,5 @@ PrefabFiles = {
 	"waterfall_oceanevil",
 	"df_unassuming_tree",
     "df_oceanshadowcreature",
+    "df_plantables",
 }
