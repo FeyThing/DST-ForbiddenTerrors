@@ -2,14 +2,14 @@
 <Atlas>
 	<Texture filename="evil_inventoryimages.tex" />
 	<Elements>
-		<Element name="df_berrybush.tex" u1="0.001" u2="0.249" v2="0.999" v1="0.751" variant="" />
 		<Element name="df_cap.tex" u1="0.251" u2="0.4911875" v2="0.999" v1="0.7588125" variant="" />
 		<Element name="df_cap_cooked.tex" u1="0.251" u2="0.4911875" v2="0.7568125" v1="0.516625" variant="" />
-		<Element name="df_grass.tex" u1="0.001" u2="0.249" v2="0.749" v1="0.501" variant="" />
 		<Element name="df_hollowbark.tex" u1="0.4931875" u2="0.7411875" v2="0.999" v1="0.751" variant="" />
 		<Element name="df_lantern.tex" u1="0.7431875" u2="0.9911875" v2="0.999" v1="0.751" variant="" />
-		<Element name="df_lantern_lit.tex" u1="0.73928125" u2="0.98728125" v2="0.5068125" v1="0.2588125" variant="" />
-		<Element name="df_pan.tex" u1="0.4931875" u2="0.73728125" v2="0.749" v1="0.50490625" variant="" />
-		<Element name="turf_evilforest.tex" u1="0.73928125" u2="0.97946875" v2="0.749" v1="0.5088125" variant="" />
+		<Element name="df_lantern_lit.tex" u1="0.4931875" u2="0.7411875" v2="0.749" v1="0.501" variant="" />
+		<Element name="df_pan.tex" u1="0.7431875" u2="0.98728125" v2="0.749" v1="0.50490625" variant="" />
+		<Element name="dug_df_berrybush.tex" u1="0.001" u2="0.249" v2="0.999" v1="0.751" variant="" />
+		<Element name="dug_df_grass.tex" u1="0.001" u2="0.249" v2="0.749" v1="0.501" variant="" />
+		<Element name="turf_evilforest.tex" u1="0.251" u2="0.4911875" v2="0.514625" v1="0.2744375" variant="" />
 	</Elements>
 </Atlas>

@@ -4,7 +4,7 @@ local valid_lantern_prefabs = {
 }
 
 local function PutLantern(inst, enable, item)
-	inst.AnimState:ClearOverrideSymbol("lantern")
+	inst.AnimState:ClearOverrideSymbol("swap_object")
 	inst.AnimState:ClearOverrideSymbol("lantern_overlay")
 	
 	inst.components.workable:SetWorkLeft(4)
@@ -14,7 +14,7 @@ local function PutLantern(inst, enable, item)
 		inst.components.trader:Disable()
 		
 		inst.AnimState:Show("rope")
-		inst.AnimState:Show("lantern")
+		inst.AnimState:Show("swap_object")
 		inst.AnimState:Show("lantern_overlay")
 		
 		if item and item:IsValid() then
@@ -24,7 +24,7 @@ local function PutLantern(inst, enable, item)
 		inst.components.trader:Enable()
 		
 		inst.AnimState:Hide("rope")
-		inst.AnimState:Hide("lantern")
+		inst.AnimState:Hide("swap_object")
 		inst.AnimState:Hide("lantern_overlay")
 		
 		inst.components.inventory:DropEverything()
@@ -114,6 +114,17 @@ local function OnTimerOver(inst, data)
 	end
 end
 
+
+local function OnLoad(inst, item, data)
+
+    if inst.components.inventory and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
+        inst.AnimState:Show("rope")
+        inst.AnimState:Show("swap_object")
+        inst.AnimState:Show("lantern_overlay")
+    end
+	
+end
+
 local function MakeTree(name, has_branch)
 	local assets = {
 		Asset("ANIM", "anim/eviltree_tall.zip"),
@@ -139,7 +150,7 @@ local function MakeTree(name, has_branch)
 		inst.AnimState:SetBuild(has_branch and "eviltree_tall" or "eviltree_tall_empty")
 		inst.AnimState:PlayAnimation("idle", true)
 		inst.AnimState:Hide("rope")
-		inst.AnimState:Hide("lantern")
+		inst.AnimState:Hide("swap_object")
 		inst.AnimState:Hide("lantern_overlay")
 		
 		inst:AddTag("antlion_sinkhole_blocker")
@@ -207,6 +218,8 @@ local function MakeTree(name, has_branch)
 		inst.AnimState:SetMultColour(color, color, color, 1)
 		
 		TheWorld:PushEvent("ms_registeroasis", inst)
+
+		--inst.OnLoad = OnLoad
 		
 		inst.OnRemoveEntity = OnRemoveEntity
 		inst.PutLantern = PutLantern
@@ -223,6 +236,8 @@ local function MakeTree(name, has_branch)
 		if has_branch then
 			inst.oninit = inst:DoTaskInTime(0, OnInit)
 		end
+
+		inst.OnLoad = OnLoad
 		
 		return inst
 	end

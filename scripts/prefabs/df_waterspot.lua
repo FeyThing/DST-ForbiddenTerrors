@@ -34,8 +34,9 @@ local weighted_loot = {
 }
 
 local pan_loot = {
-	goldnugget 	= 0.2,
-	rocks 		= 0.8,
+	goldnugget 	= 0.3,
+	flint 	= 0.1,
+	rocks 		= 0.6,
 }
 
 local land_prefabs = {}

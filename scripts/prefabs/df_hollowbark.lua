@@ -36,6 +36,16 @@ local function fn()
 		
 	inst:AddComponent("inspectable")
 
+    inst:AddComponent("tradable")
+
+	inst:AddComponent("edible")
+    inst.components.edible.foodtype = FOODTYPE.WOOD
+    inst.components.edible.healthvalue = 0
+    inst.components.edible.hungervalue = 0
+
+    inst:AddComponent("fuel")
+    inst.components.fuel.fuelvalue = TUNING.MED_FUEL
+
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
 		
@@ -44,7 +54,7 @@ local function fn()
     inst:AddComponent("forcecompostable")
     inst.components.forcecompostable.brown = true
 		
-	MakeHauntableLaunchAndPerish(inst)
+	MakeHauntableLaunchAndIgnite(inst)
 
 	
     return inst

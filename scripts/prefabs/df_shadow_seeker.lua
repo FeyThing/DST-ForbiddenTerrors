@@ -94,7 +94,6 @@ local function fn()
 	
     inst.Transform:SetTwoFaced()
 	
-    inst:AddTag("shadowcreature")
     inst:AddTag("gestaltnoloot")
     inst:AddTag("monster")
     inst:AddTag("hostile")

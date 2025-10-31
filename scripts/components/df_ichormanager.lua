@@ -161,11 +161,11 @@ function DF_IchorManager:DoDelta(delta)
     end
 
     if self.seeker == nil then
-        if self.percent >= SPAWN_THRESH then
+        if self.percent >= SPAWN_THRESH and not TheWorld.state.isday then
             self:SpawnSeeker()
         end
     else
-        if self.percent <= DESPAWN_THRESH then
+        if self.percent <= DESPAWN_THRESH or TheWorld.state.isday then 
             self:DespawnSeeker()
         end
     end
@@ -175,7 +175,6 @@ function DF_IchorManager:SetPercent(perc)
     self.percent = perc
     self:DoDelta(0)
 end
-
 
 local DF_ICHOR_MUST_TAGS = { "df_ichoraura" }
 local DF_ICHOR_CANT_TAGS = { "INLIMBO" }
@@ -197,7 +196,11 @@ function DF_IchorManager:OnUpdate(dt)
         rate = rate + TUNING.DF_ICHOR_MOON_RATE
     end
 
-    if rate ~= 0 or TheWorld.state.isnewmoon then
+    if self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
+        rate = rate + TUNING.DF_ICHOR_MOON_RATE
+    end
+
+    if rate ~= 0 or TheWorld.state.isnewmoon or self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
         self:DoDelta(rate)
     end
 end

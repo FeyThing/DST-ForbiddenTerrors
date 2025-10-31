@@ -151,6 +151,7 @@ local function onunequip(inst, owner)
     end
 end
 
+
 local function onequiptomodel(inst, owner, from_ground)
     if inst.components.machine.ison then
         starttrackingowner(inst, owner)
