@@ -130,6 +130,12 @@ local DF_TUNING = {
         MAX = 90
     },
 
+
+    DF_WATERSPOT_LIFETIME = {
+        MIN = TUNING.TOTAL_DAY_TIME * 3,
+        MAX = TUNING.TOTAL_DAY_TIME * 4
+    },
+
     DF_WATERSPOT_MAX_SPAWNED = 10,
 
     

@@ -118,6 +118,9 @@ local presets =
         timefn = function()
             return GetRandomMinMax(TUNING.DF_WATERSPOT_SPAWN_DELAY.MIN, TUNING.DF_WATERSPOT_SPAWN_DELAY.MAX)
         end,
+        lifetimefn = function()
+            return GetRandomMinMax(TUNING.DF_WATERSPOT_LIFETIME.MIN, TUNING.DF_WATERSPOT_LIFETIME.MAX)
+        end,
         radiusfn = function()
             return GetRandomMinMax(35, 45)
         end,
@@ -125,7 +128,7 @@ local presets =
             return _world:HasTag("df_fog_ongoing") and _num_spawned.df_waterspot < TUNING.DF_WATERSPOT_MAX_SPAWNED
         end,
         spawncheckfn = function(x, y, z)
-            return _map:IsSurroundedByLand(x, y, z, 1) and
+            return _map:IsSurroundedByDFOcean(x, y, z, 1) and
                     #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_WATERSPOT_NOSPAWN_ONEOF_TAGS) <= 0 and
                     FindClosestPlayerInRange(x, y, z, 20) == nil
         end,
