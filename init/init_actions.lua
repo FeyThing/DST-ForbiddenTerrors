@@ -28,7 +28,7 @@ local DF_HIDEIN = ENV.AddAction("DF_HIDEIN", STRINGS.ACTIONS.DF_HIDEIN, function
 		end
 	end
 end)
-DF_HIDEIN.priority = -1
+DF_HIDEIN.priority = 2
 
 local DF_PANNING = ENV.AddAction("DF_PANNING", STRINGS.ACTIONS.DF_PANNING, function(act)
 	if act.invobject and act.invobject.components.df_pan then
@@ -50,8 +50,9 @@ ENV.AddStategraphActionHandler("wilson_client", ActionHandler(DF_PANNING, "dosho
 
 --
 
+local HIDE_CANT_TAGS = {"burnt", "smolder", "fire", "stokeablefire"}
 ENV.AddComponentAction("SCENE", "df_hidingspot", function(inst, doer, actions, right)
-	if right and inst:HasTag("df_canhide") and not doer:HasTag("df_hiding") then
+	if right and inst:HasTag("df_canhide") and not inst:HasOneOfTags(HIDE_CANT_TAGS) and not doer:HasTag("df_hiding") then
 		table.insert(actions, DF_HIDEIN)
 	end
 end)
