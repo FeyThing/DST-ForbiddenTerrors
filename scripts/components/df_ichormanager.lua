@@ -192,16 +192,21 @@ function DF_IchorManager:OnUpdate(dt)
         end
     end
 
-    if TheWorld.state.isnight and TheWorld.state.isnewmoon then
-        rate = rate + TUNING.DF_ICHOR_MOON_RATE
-    end
 
-    if self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
-        rate = rate + TUNING.DF_ICHOR_MOON_RATE
-    end
+    if GetClosestDarkForestTileToPoint(x, 0, z, 12) ~= nil then
+					
+        if TheWorld.state.isnight and TheWorld.state.isnewmoon then
+            rate = rate + TUNING.DF_ICHOR_MOON_RATE
+        end
 
-    if rate ~= 0 or TheWorld.state.isnewmoon or self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
-        self:DoDelta(rate)
+        if self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
+            rate = rate + TUNING.DF_ICHOR_MOON_RATE
+        end
+
+        if rate ~= 0 or TheWorld.state.isnewmoon or self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
+            self:DoDelta(rate)
+        end
+        return
     end
 end
 
