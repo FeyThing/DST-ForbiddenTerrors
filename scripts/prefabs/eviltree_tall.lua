@@ -114,6 +114,17 @@ local function OnTimerOver(inst, data)
 	end
 end
 
+
+local function OnLoad(inst, item, data)
+
+    if inst.components.inventory and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
+        inst.AnimState:Show("rope")
+        inst.AnimState:Show("swap_object")
+        inst.AnimState:Show("lantern_overlay")
+    end
+	
+end
+
 local function MakeTree(name, has_branch)
 	local assets = {
 		Asset("ANIM", "anim/eviltree_tall.zip"),
@@ -207,6 +218,8 @@ local function MakeTree(name, has_branch)
 		inst.AnimState:SetMultColour(color, color, color, 1)
 		
 		TheWorld:PushEvent("ms_registeroasis", inst)
+
+		--inst.OnLoad = OnLoad
 		
 		inst.OnRemoveEntity = OnRemoveEntity
 		inst.PutLantern = PutLantern
@@ -223,6 +236,8 @@ local function MakeTree(name, has_branch)
 		if has_branch then
 			inst.oninit = inst:DoTaskInTime(0, OnInit)
 		end
+
+		inst.OnLoad = OnLoad
 		
 		return inst
 	end

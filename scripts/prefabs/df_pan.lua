@@ -29,6 +29,8 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddNetwork()
 
+	MakeInventoryPhysics(inst)
+
 	inst.AnimState:SetBank("df_pan")
 	inst.AnimState:SetBuild("df_pan")
 	inst.AnimState:PlayAnimation("idle")
