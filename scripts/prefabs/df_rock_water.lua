@@ -35,6 +35,9 @@ local function CurrentlyWorking(inst, worker, workleft)
 			inst.SoundEmitter:PlaySound("dontstarve/wilson/rock_break")
 			inst.components.lootdropper:DropLoot(pt)
 			inst:Remove()
+            local x, y, z = inst.Transform:GetWorldPosition()
+			local fx = SpawnPrefab("df_waterspot")
+			fx.Transform:SetPosition(x, y, z)
     elseif workleft < TUNING.ROCKS_MINE / 3 then
         inst.AnimState:PlayAnimation("low")
     elseif workleft < TUNING.ROCKS_MINE * 2 / 3 then

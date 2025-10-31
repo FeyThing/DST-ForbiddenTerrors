@@ -121,6 +121,9 @@ AddRoom("EvilForest Bog", {
 	tags = {"DF_Forest", "DF_Rivers", "nohunt"},
 	value = WORLD_TILES.EVILFOREST_WATER_CONVERT,
 	contents = {
+		countprefabs = {
+			driftwood_log = function() return math.random(4,6) end,
+		},
 		distributepercent = 0.1,
 		distributeprefabs = {
 			fireflies = 0.33,

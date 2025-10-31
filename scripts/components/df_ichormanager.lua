@@ -197,7 +197,11 @@ function DF_IchorManager:OnUpdate(dt)
         rate = rate + TUNING.DF_ICHOR_MOON_RATE
     end
 
-    if rate ~= 0 or TheWorld.state.isnewmoon then
+    if self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
+        rate = rate + TUNING.DF_ICHOR_MOON_RATE
+    end
+
+    if rate ~= 0 or TheWorld.state.isnewmoon or self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
         self:DoDelta(rate)
     end
 end
