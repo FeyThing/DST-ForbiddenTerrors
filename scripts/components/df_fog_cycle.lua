@@ -138,7 +138,7 @@ return Class(function(self, inst) -- Adapted from Winterlands blizzard cycle. To
 	end
 	
 	if TUNING.DF_FOG_ENABLED then
-		inst:ListenForEvent("playeractivated", OnPlayerActivated)
-		inst:ListenForEvent("playerdeactivated", OnPlayerDeactivated)
+		inst:ListenForEvent("ms_playerjoined", OnPlayerActivated)
+		inst:ListenForEvent("ms_playerleft", OnPlayerDeactivated)
 	end
 end)

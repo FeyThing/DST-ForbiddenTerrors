@@ -1,6 +1,6 @@
-name = "Forbidden Terrors"
+name = "Forbidden Terrors[Beta]"
 author = "Feything"
-version = "Beta 1.4" 
+version = "Beta 1.1" 
 local info_version = "󰀔 [ Version "..version.." ]\n"
 
 description = info_version..[[
@@ -11,9 +11,7 @@ Endure harsh elements in a brand new horror theme bog biome.
 
 󰀏 Configure the mod to your choosing in the settings!
 
-Many thanks to ADM, Half, and ClumsyPenny for the help with code! 
-Lidemo for donating some art to the cause.
-Special thanks to Ardent for a lot of the water scripts.
+THIS MOD IS IN VERY EARLY BETA/ALPHA. Many bugs exist and some things might not be tuned property. Many assets for the mod exists but are unimplemented due to wanting to get this in on time. This mod has been in development for only a month so it maybe rough.
 ]]
 
 
@@ -68,19 +66,19 @@ local options_count = {
 }
 
 -- Thanks to the Gorge Extender by CunningFox for making me aware of this being possible -M
-local function Breaker(title_en)  --hover does not work, as this item cannot be hovered
+--[[local function Breaker(title_en)  --hover does not work, as this item cannot be hovered
 	return {name = title_en, options = {{description = "", data = false}}, default = false}
-end
+end]]
 
 configuration_options =
 {
-	Breaker("Misc."),
+	--[[Breaker("Misc."),
 	{
 		name = "devmode",
 		label = "Dev Mode",
         hover = "Enable this to turn your keyboard into a minefield of crazy debug hotkeys. (Only use if you know what you are doing!)",
 		default = false,
-	},
+	},]]
 	CreateLanguageOption("language", "en", "Language", "Change the mod language."),
 }
 

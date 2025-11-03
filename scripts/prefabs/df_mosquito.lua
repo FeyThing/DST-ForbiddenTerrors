@@ -223,7 +223,6 @@ local function mosquito()
 	------------------
 	
 	inst:AddComponent("sleeper")
-	inst.components.sleeper.watchlight = true
 	
 	------------------
 	

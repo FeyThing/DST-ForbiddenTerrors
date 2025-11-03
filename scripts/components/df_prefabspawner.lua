@@ -124,9 +124,9 @@ local presets =
         radiusfn = function()
             return GetRandomMinMax(35, 45)
         end,
-        canspawnfn = function()
-            return _world:HasTag("df_fog_ongoing") and _num_spawned.df_waterspot < TUNING.DF_WATERSPOT_MAX_SPAWNED
-        end,
+        --canspawnfn = function()
+            --return _num_spawned.df_waterspot < TUNING.DF_WATERSPOT_MAX_SPAWNED
+        --end,
         spawncheckfn = function(x, y, z)
             return _map:IsSurroundedByDFOcean(x, y, z, 1) and
                     #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_WATERSPOT_NOSPAWN_ONEOF_TAGS) <= 0 and
