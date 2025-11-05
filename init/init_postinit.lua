@@ -58,6 +58,7 @@ local sim_post = {
 
 local package_post = {
     ["components/map"] = "map",
+    ["shadeeffects"] = "shadeeffects",
 }
 
 modimport("postinit/entityscript")

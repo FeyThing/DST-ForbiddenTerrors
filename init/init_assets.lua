@@ -28,7 +28,3 @@ function GLOBAL.GetInventoryItemAtlas_Internal(imagename, ...)
     return GLOBAL.TheSim:AtlasContains(EVIL_ICONS, imagename) and EVIL_ICONS
             or _GetInventoryItemAtlas_Internal(imagename, ...)
 end
-
-AddSimPostInit(function()
-	modimport("postinit/shadeeffects")
-end)
