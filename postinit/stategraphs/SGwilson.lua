@@ -7,7 +7,7 @@ GLOBAL.setfenv(1, GLOBAL)
 ENV.AddStategraphState("wilson",
 	State{
 		name = "df_hide",
-		tags = {"hiding", "silentmorph", "nopredict"},
+		tags = {"hiding", "silentmorph"},
 		
 		onenter = function(inst, target)
 			inst.components.locomotor:Stop()
