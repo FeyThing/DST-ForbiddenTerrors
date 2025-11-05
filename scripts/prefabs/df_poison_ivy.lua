@@ -121,6 +121,7 @@ local function df_grass(name, stage)
         inst:AddTag("renewable")
 		inst:AddTag("silviculture") -- for silviculture book
         inst:AddTag("lunarplant_target")
+        inst:AddTag("noepicmusic")
 
         --witherable (from witherable component) added to pristine state for optimization
         inst:AddTag("witherable")

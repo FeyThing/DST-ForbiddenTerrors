@@ -3,19 +3,8 @@ GLOBAL.setfenv(1, GLOBAL)
 
 DFENV.AddComponentPostInit("shadowcreaturespawner", function(self)
 
---------------------------------------------------------------------------
---[[ Member variables ]]
---------------------------------------------------------------------------
-
---Public
 local inst = self.inst
-
---Private
 local _map = TheWorld.Map
-
---------------------------------------------------------------------------
---[[ Private member functions ]]
---------------------------------------------------------------------------
 
 local function DF_SpawnOceanShadowCreature(player)
     local inst = SpawnPrefab("df_swimminghorror")

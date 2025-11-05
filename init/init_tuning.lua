@@ -121,7 +121,7 @@ local DF_TUNING = {
         MAX = 110
     },
 
-    DF_UNASSUMING_TREE_MAX_SPAWNED = 7,
+    DF_UNASSUMING_TREE_MAX_SPAWNED = 5,
 
     DF_WATERSPOT_SPAWN_DELAY = {
         -- MIN=30, 
@@ -142,20 +142,25 @@ local DF_TUNING = {
 
     -- Rates of stuff that add or reduce ichor level
     DF_ICHOR_RATE = {
-        DARKNESS = 0.10,
+        DARKNESS = 10,
+        SANITY = 20,
+        MOON = 40,
     },
+
+    DF_ICHOR_CHANCE = 2,
+
     -- Min rate when ichor is blocked
     DF_ICHOR_BLOCKED_MAX_RATE = -0.01,
-    DF_ICHOR_SANITY_DELTA_MULT = 10,
+    DF_ICHOR_SANITY_DELTA_MULT = 1,
 
     DF_ICHOR_EFFECT_RANGE = 5,
     DF_ICHOR_AURA_SEACH_RANGE = 10,
 
-    DF_ICHOR_MOON_RATE = 0.10,
+
 
     DF_LANTERN_ICHOR_AURA = -1,
 
-    DF_POISON_IVY_DAMAGE = 20,
+    DF_POISON_IVY_DAMAGE = 2,
 }
 
 

@@ -1,6 +1,7 @@
 
 local SourceModifierList = require("util/sourcemodifierlist")
 
+
 local function OnEnterDark(inst)
     local self = inst.components.df_ichormanager
     self:AddRateSource(self.inst, TUNING.DF_ICHOR_RATE.DARKNESS, "darkness")
@@ -192,16 +193,28 @@ function DF_IchorManager:OnUpdate(dt)
         end
     end
 
-    if TheWorld.state.isnight and TheWorld.state.isnewmoon then
-        rate = rate + TUNING.DF_ICHOR_MOON_RATE
-    end
 
-    if self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
-        rate = rate + TUNING.DF_ICHOR_MOON_RATE
-    end
+    if GetClosestDarkForestTileToPoint(x, 0, z, 12) ~= nil then
+         local ichorChance = math.random(1, 100)
+					
+        if TheWorld.state.isnight and TheWorld.state.isnewmoon then
+            rate = rate + TUNING.DF_ICHOR_RATE.MOON * dt
+        end
 
-    if rate ~= 0 or TheWorld.state.isnewmoon or self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
-        self:DoDelta(rate)
+
+        if ichorChance <= TUNING.DF_ICHOR_CHANCE then
+            if self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
+            rate = rate + TUNING.DF_ICHOR_RATE.SANITY * dt
+            end
+            print(ichorChance)
+        else
+           return
+       end
+
+        if rate ~= 0 or TheWorld.state.isnewmoon or self.inst:HasTag("crazy") or (self.inst.components.sanity and self.inst.components.sanity:IsCrazy()) then
+            self:DoDelta(rate)
+        end
+        return
     end
 end
 
@@ -236,12 +249,12 @@ function DF_IchorManager:SpawnSeeker()
     end, seeker)
 
     self.inst:ListenForEvent("entitysleep", function()
-        seeker:DoTaskInTime(0, function() seeker:Remove() end)
+        seeker:DoTaskInTime(0, function() self:DespawnSeeker() end)
     end, seeker)
 
     seeker:ListenForEvent("onremove", function()
         if seeker == self.seeker then
-           self:Remove()
+           self:DespawnSeeker()
         end
     end, self.inst)
 

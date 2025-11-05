@@ -39,30 +39,6 @@ local function OnDarkForestChanged(inst)
 	end
 end
 
-local function OnLoad(inst, data, ...)
-	--(H) SANITY CHECK: uhh half what the fuck is this
-    -- Well this really sucks, thanks for making my life hell klei :) (I blame Zarklord specifically because funi)
-    local _DoTaskInTime = inst.DoTaskInTime
-    function inst:DoTaskInTime(time, fn, ...)
-        return _DoTaskInTime(self, time, fn ~= nil and function(...)
-            local _enabled = nil
-            local _drownable = inst:IsOnDFOceanTile(true) and inst.components.drownable or nil
-            if _drownable then
-                _enabled = _drownable.enabled
-                _drownable.enabled = false
-            end
-            local _rets = {fn(...)}
-            if _drownable then
-                _drownable.enabled = _enabled
-            end
-            return unpack(_rets)
-        end or nil, ...)
-    end
-	local rets = {inst.DF_OnLoad(inst, data, ...)}
-    inst.DoTaskInTime = _DoTaskInTime
-    return unpack(rets)
-end
-
 ENV.AddPlayerPostInit(function(inst)
     inst._underevilcanopy = net_bool(inst.GUID, "localplayer._underevilcanopy","underevilcanopydirty")
     inst._sinkshader_submerged = net_bool(inst.GUID, "localplayer._sinkshader_submerged")
@@ -86,12 +62,6 @@ ENV.AddPlayerPostInit(function(inst)
 	
     if not TheWorld.ismastersim then
         return
-    end
-
-
-    if inst.OnLoad then
-        inst.DF_OnLoad = inst.OnLoad
-        inst.OnLoad = OnLoad
     end
 
     inst:AddComponent("df_ichormanager")

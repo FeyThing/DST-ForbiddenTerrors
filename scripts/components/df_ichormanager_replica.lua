@@ -23,8 +23,8 @@ function DF_IchorManager:SetLevel(level)
     end
 
     if not TheNet:IsDedicated() and self.inst == ThePlayer then
-        if level > 3 then
-            if self.level <= 3 then
+        if level > 4 then
+            if self.level <= 5 then
                TheFocalPoint.SoundEmitter:PlaySound("df_sound/set_sfx/HUD/df_ichor_heartbeat", "df_ichor_heartbeat")
             end
             TheFocalPoint.SoundEmitter:SetVolume("df_ichor_heartbeat", math.min(level, MAX_LEVEL)/MAX_LEVEL)
