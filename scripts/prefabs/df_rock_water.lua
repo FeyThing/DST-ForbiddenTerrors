@@ -57,6 +57,10 @@ local function OnCollide(inst, data)
     end
 end
 
+local function CLIENT_ForceFloaterUpdate(inst)
+    inst.components.floater:OnLandedServer()
+end
+
 local function prerock_fn(bank, build, anim, icon)
 	local inst = CreateEntity()
 
@@ -70,16 +74,25 @@ local function prerock_fn(bank, build, anim, icon)
 	--MakeObstaclePhysics(inst, 1)
     MakeWaterObstaclePhysics(inst, 0.80, 2, 0.75)
 
-    inst:AddTag("ignorewalkableplatforms")
-
     inst.MiniMapEntity:SetIcon("rock.png")
+
+    inst:AddTag("ignorewalkableplatforms")
+    inst:AddTag("floaterobject")
 
     inst.AnimState:SetBank(bank)
     inst.AnimState:SetBuild(build)
     inst.AnimState:PlayAnimation(anim)
 
     MakeSnowCoveredPristine(inst)
+    MakeInventoryFloatable(inst, "large", nil, 0.85)
+    inst.components.floater:SetIsObstacle()
+    inst.components.floater.bob_percent = 0
+
+    local land_time = POPULATING and (math.random() * 5 * FRAMES) or 0
+    inst:DoTaskInTime(land_time, CLIENT_ForceFloaterUpdate)
+
     inst.entity:SetPristine()
+    
 
     if not TheWorld.ismastersim then
         return inst
