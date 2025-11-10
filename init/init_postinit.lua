@@ -31,7 +31,6 @@ local components_post = {
 local prefabs_post = {
 	"floatsam",
     "oceanfish",
-    "wilson",
     "world",
     "shadowcreature",
 }
@@ -63,6 +62,7 @@ local package_post = {
 
 modimport("postinit/entityscript")
 modimport("postinit/simutil")
+modimport("postinit/player")
 
 for _,v in pairs(behaviours_post) do
     modimport("postinit/behaviours/" .. v)
