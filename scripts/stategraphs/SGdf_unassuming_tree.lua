@@ -4,6 +4,7 @@ local NUM_IDLE_ANIMS = 6
 
 local events = {
 	CommonHandlers.OnLocomote(false,true),
+	CommonHandlers.OnHop(),
 	EventHandler("worked", function(inst, data)
 		inst.sg:GoToState("chopped")
 	end),
@@ -116,6 +117,15 @@ CommonStates.AddWalkStates(states,
 },
 {
 	startwalk = "walk", walk = "walk", stopwalk = "walk"
+})
+CommonStates.AddAmphibiousCreatureHopStates(states,
+{
+	swimming_clear_collision_frame = 5*FRAMES, -- to-do figure out what this is for exactly
+},
+{
+	pre = "walk",
+	loop = "walk",
+	pst = "idle1",
 })
 
 return StateGraph("df_unassuming_tree", states, events, "idle")

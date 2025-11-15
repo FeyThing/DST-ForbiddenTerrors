@@ -117,7 +117,14 @@ local function fn(build)
 	
 	inst:AddComponent("locomotor")
 	inst.components.locomotor.walkspeed = TUNING.DF_UNASSUMING_TREE_WALKSPEED
+	inst.components.locomotor.pathcaps = { allowocean = true }
+	inst.components.locomotor:SetAllowPlatformHopping(true)
 	inst:SetStateGraph("SGdf_unassuming_tree")
+	
+	inst:AddComponent("amphibiouscreature")
+	
+	inst:AddComponent("embarker")
+	inst.components.embarker.embark_speed = TUNING.DF_UNASSUMING_TREE_WALKSPEED
 	
 	inst:AddComponent("sanityaura")
 	inst.components.sanityaura.aura = -TUNING.SANITYAURA_MED -- 40/min
