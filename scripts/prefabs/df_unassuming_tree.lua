@@ -84,6 +84,17 @@ SetSharedLootTable("df_unassuming_tree",
     { "df_hollowbark",   0.5 },
 })
 
+local function OnEnterWater(inst)
+    inst.landspeed = inst.components.locomotor.walkspeed
+    inst.components.locomotor.walkspeed = TUNING.DF_UNASSUMING_TREE_WADSPEED
+end
+
+local function OnExitWater(inst)
+    if inst.landspeed then
+        inst.components.locomotor.walkspeed = inst.landspeed
+    end
+end
+
 local function fn(build)
 	local inst = CreateEntity()
 	
@@ -124,6 +135,8 @@ local function fn(build)
 	
 	inst:AddComponent("amphibiouscreature")
 	inst.components.amphibiouscreature:SetBanks("df_unassuming_tree", "df_unassuming_tree_ocean")
+	inst.components.amphibiouscreature:SetEnterWaterFn(OnEnterWater)
+    inst.components.amphibiouscreature:SetExitWaterFn(OnExitWater)
 
 	inst:AddComponent("embarker")
 	inst.components.embarker.embark_speed = TUNING.DF_UNASSUMING_TREE_WADSPEED
