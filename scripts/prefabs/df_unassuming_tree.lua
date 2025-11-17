@@ -2,6 +2,7 @@ local brain = require "brains/df_unassuming_treebrain"
 
 local assets = {
 	Asset("ANIM", "anim/df_unassuming_tree.zip"),
+	Asset("ANIM", "anim/df_unassuming_tree_ocean.zip"),
 }
 
 local prefabs = {
@@ -122,9 +123,10 @@ local function fn(build)
 	inst:SetStateGraph("SGdf_unassuming_tree")
 	
 	inst:AddComponent("amphibiouscreature")
-	
+	inst.components.amphibiouscreature:SetBanks("df_unassuming_tree", "df_unassuming_tree_ocean")
+
 	inst:AddComponent("embarker")
-	inst.components.embarker.embark_speed = TUNING.DF_UNASSUMING_TREE_WALKSPEED
+	inst.components.embarker.embark_speed = TUNING.DF_UNASSUMING_TREE_WADSPEED
 	
 	inst:AddComponent("sanityaura")
 	inst.components.sanityaura.aura = -TUNING.SANITYAURA_MED -- 40/min
