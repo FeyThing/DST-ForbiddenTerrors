@@ -77,12 +77,12 @@ local function OnDFPrefabSpawned(inst)
     end
 end
 
-local UNASSUMING_LOOT = {
-	"livinglog",
-	"livinglog",
-	"monstermeat",
-	"df_hollowbark",
-}
+SetSharedLootTable("df_unassuming_tree",
+{
+    { "livinglog",            1.00 },
+    { "monstermeat",       1.00 },
+    { "df_hollowbark",   0.5 },
+})
 
 local function fn(build)
 	local inst = CreateEntity()
@@ -145,7 +145,7 @@ local function fn(build)
 	inst.components.workable:SetOnFinishCallback(OnWorked)
 	
 	inst:AddComponent("lootdropper")
-	inst.components.lootdropper:SetLoot(UNASSUMING_LOOT)
+	inst.components.lootdropper:SetChanceLootTable("df_unassuming_tree")
 	
 	inst:AddComponent("inspectable")
 	

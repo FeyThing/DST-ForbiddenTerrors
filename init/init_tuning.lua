@@ -104,8 +104,8 @@ local DF_TUNING = {
     },
 
     DF_OCEANFISH_LIFETIME = {
-        MIN = TUNING.TOTAL_DAY_TIME * 3,
-        MAX = TUNING.TOTAL_DAY_TIME * 4
+        MIN = TUNING.TOTAL_DAY_TIME * 2,
+        MAX = TUNING.TOTAL_DAY_TIME * 3
     },
 
     DF_MOSQUITO_SPAWN_DELAY = {
@@ -161,7 +161,7 @@ local DF_TUNING = {
 
     DF_LANTERN_ICHOR_AURA = -1,
 
-    DF_POISON_IVY_DAMAGE = 2,
+    DF_POISON_IVY_DAMAGE = 3,
 }
 
 

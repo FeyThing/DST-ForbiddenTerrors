@@ -1,12 +1,12 @@
 local CLUSTER_LENGTH = 10
 local CLUSTER_WIDTH = 2
 
-local MAX_CLUSTERS = 40
+local MAX_CLUSTERS = 30
 
 local RIVER_TILE_DIST = 1
 
 local GRASS_PREFABS = {
-    df_grass = 9,
+    df_grass = 7,
     df_poison_ivy = 1,
 }
 

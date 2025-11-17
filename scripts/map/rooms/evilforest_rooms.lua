@@ -25,6 +25,7 @@ AddRoom("EvilForest", {
 		countprefabs = {
 			df_berrybush = function() return math.random(4,6) end,
 			df_mushroom = function() return math.random(2,5) end,
+			rabbithole = function() return math.random(1,3) end,
 		},
 		distributepercent = 0.07,
 		distributeprefabs = {
@@ -122,14 +123,15 @@ AddRoom("EvilForest Bog", {
 	value = WORLD_TILES.EVILFOREST_WATER_CONVERT,
 	contents = {
 		countprefabs = {
-			driftwood_log = function() return math.random(4,6) end,
+			df_rock_water = function() return math.random(4,6) end,
+			df_reeds = function() return math.random(3,5) end,
 		},
 		distributepercent = 0.1,
 		distributeprefabs = {
 			fireflies = 0.33,
 			df_reeds = 0.63,
-			df_rock_water = 0.6,
-			driftwood_log = 0.2,
+			df_rock_water = 0.2,
+			driftwood_log = 0.6,
 		},
 	},
 })

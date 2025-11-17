@@ -34,10 +34,10 @@ local _spawn_tasks = {}
 --[[ Presets ]]
 --------------------------------------------------------------------------
 
-local DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS = {"flotsam"}
-local DF_OCEANFISH_NOSPAWN_ONEOF_TAGS = {"oceanfish_small_df"}
-local DF_MOSQUITO_NOSPAWN_ONEOF_TAGS = {"df_mosquito"}
-local DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS = {"df_unassuming_tree"}
+local DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS = {"flotsam", "df_waterspot", "df_reeds"}
+local DF_OCEANFISH_NOSPAWN_ONEOF_TAGS = {"oceanfish_small_df", "df_mosquito", "firepit", "campfire", "coldfire", "coldfirepit"}
+local DF_MOSQUITO_NOSPAWN_ONEOF_TAGS = {"df_mosquito", "oceanfish_small_df", "fire", "torchfire"}
+local DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS = {"df_unassuming_tree", "fire", "df_mosquito"}
 local DF_WATERSPOT_NOSPAWN_ONEOF_TAGS = {"df_waterspot"}
 
 local presets =
@@ -56,7 +56,7 @@ local presets =
         spawncheckfn = function(x, y, z)
             return _map:IsSurroundedByDFOcean(x, y, z, 1.25) and
                     TheWorld.Map:GetPlatformAtPoint(x, z) == nil and
-                    #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS) <= 0 and
+                    #TheSim:FindEntities(x, y, z, 40, nil, nil, DF_DRIFTWOOD_NOSPAWN_ONEOF_TAGS) <= 0 and
                     FindClosestPlayerInRange(x, y, z, 5, true) == nil
         end,
     },
@@ -109,7 +109,7 @@ local presets =
         end,
         spawncheckfn = function(x, y, z)
             return _map:IsSurroundedByLand(x, y, z, 1) and
-                    #TheSim:FindEntities(x, y, z, 30, nil, nil, DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS) <= 0 and
+                    #TheSim:FindEntities(x, y, z, 90, nil, nil, DF_UNASSUMING_TREE_NOSPAWN_ONEOF_TAGS) <= 0 and
                     FindClosestPlayerInRange(x, y, z, 30) == nil
         end,
     },

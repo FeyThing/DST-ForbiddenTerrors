@@ -11,7 +11,7 @@ local prefabs = {
 }
 
 SetSharedLootTable('oceanfish_small_df', {
-	{'fishmeat_small',  1},
+	{'fishmeat_small',  0.2},
 })
 
 local DIET = {OMNI = {caneat = {FOODGROUP.OMNI}}}
