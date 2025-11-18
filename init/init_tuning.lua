@@ -43,7 +43,7 @@ local DF_TUNING = {
 	},
 	DF_FOG_BLOCKER_DURATION = 5,
 	DF_FOG_BLOCKER_DURATION_GRADUAL = seg_time * 4,
-	DF_FOG_COOLDOWNS = {min = 6 * total_day_time, max = 8 * total_day_time},
+	DF_FOG_COOLDOWNS = {min = 2 * total_day_time, max = 8 * total_day_time},
 	DF_FOG_DURATIONS = {min = 1 * total_day_time, max = 2 * total_day_time},
 	DF_FOG_MOISTURE_DT = 0.5,
 	
@@ -145,7 +145,7 @@ local DF_TUNING = {
     DF_ICHOR_RATE = {
         DARKNESS = 10,
         SANITY = 20,
-        MOON = 40,
+        MOON = 60,
     },
 
     DF_ICHOR_CHANCE = 2,
