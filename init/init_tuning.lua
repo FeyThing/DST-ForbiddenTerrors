@@ -43,7 +43,7 @@ local DF_TUNING = {
 	},
 	DF_FOG_BLOCKER_DURATION = 5,
 	DF_FOG_BLOCKER_DURATION_GRADUAL = seg_time * 4,
-	DF_FOG_COOLDOWNS = {min = 2 * total_day_time, max = 8 * total_day_time},
+	DF_FOG_COOLDOWNS = {min = 3 * total_day_time, max = 8 * total_day_time},
 	DF_FOG_DURATIONS = {min = 1 * total_day_time, max = 2 * total_day_time},
 	DF_FOG_MOISTURE_DT = 0.5,
 	
@@ -137,7 +137,7 @@ local DF_TUNING = {
         MAX = TUNING.TOTAL_DAY_TIME * 4
     },
 
-    DF_WATERSPOT_MAX_SPAWNED = 10,
+    DF_WATERSPOT_MAX_SPAWNED = 5,
 
     
 

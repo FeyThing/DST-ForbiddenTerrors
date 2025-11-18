@@ -196,7 +196,7 @@ local function OnPanned(inst, data)
 	for i = 1, max_items do
 		if i < max_items or math.random() < 0.6 then
 			local r = math.random()
-			local item = SpawnPrefab(r < 0.3 and "goldnugget" or r < 0.45 and "flint" or "rocks")
+			local item = SpawnPrefab(r < 0.1 and "goldnugget" or r < 0.5 and "flint" or "rocks")
 			item.Transform:SetPosition(data.pos.x, 0, data.pos.z)
 			
 			table.insert(items, item)

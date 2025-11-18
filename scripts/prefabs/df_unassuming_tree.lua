@@ -81,7 +81,7 @@ SetSharedLootTable("df_unassuming_tree",
 {
     { "livinglog",            1.00 },
     { "monstermeat",       1.00 },
-    { "df_hollowbark",   0.5 },
+    { "df_hollowbark",   1.00 },
 })
 
 local function OnEnterWater(inst)
