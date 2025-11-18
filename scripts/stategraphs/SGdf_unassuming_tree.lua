@@ -31,7 +31,7 @@ local states = {
 			if inst.sg.mem.idlenum == nil then
 				inst.sg.mem.idlenum = math.random(1,NUM_IDLE_ANIMS)
 			end
-			inst.AnimState:PlayAnimation("idle"..inst.sg.mem.idlenum)
+			inst.AnimState:PlayAnimation("idle"..inst.sg.mem.idlenum, true)
 		end,
 		
 		events = {
