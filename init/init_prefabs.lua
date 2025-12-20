@@ -14,7 +14,7 @@ PrefabFiles = {
 	"df_lantern",
 	"df_poison_ivy",
 	"eviltree_tall",
-	"scyther",
+	"df_scyther",
 	"df_shadow_seeker",
 	"waterfall_oceanevil",
 	"df_unassuming_tree",

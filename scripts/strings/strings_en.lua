@@ -37,6 +37,7 @@ NAMES.DF_MOSQUITO = "Bogskito"
 NAMES.DF_UNASSUMING_TREE = "Unassuming Tree"
 NAMES.OCEANFISH_SMALL_DF = "Piranha"
 NAMES.DF_SWIMMINGHORROR = "Swimming Horror"
+NAMES.DF_SCYTHER = "Scyther"
 
 --- Other
 DESCRIBE.TURF_EVILFOREST = "It's a creepy tuft of grass"
